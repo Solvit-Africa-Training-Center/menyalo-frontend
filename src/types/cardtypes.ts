@@ -1,8 +1,8 @@
-import type React from "react";
+import type React from 'react';
 
 export interface CardProps {
   title: string;
   description: string;
-  icon: React.ReactNode; 
+  icon: React.ReactNode;
   className?: string;
 }
