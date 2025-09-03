@@ -1,11 +1,8 @@
-import LandingPage from './pages/LandingPage';
-// import Layout from './components/Layout';
-// import Feature from "./components/Feature";
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
-    <LandingPage />
-    // <Feature/>
+    <AppRoutes />
   );
 }
 
