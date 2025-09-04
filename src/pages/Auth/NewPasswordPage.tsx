@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../assets/LOGO_new.png';
+import logo from '../../assets/Logodark.png';
 import bgImg from '../../assets/forget.jpg';
 import InPuts from '../../components/InPuts';
 import Button from '../../components/Button';
@@ -44,45 +44,53 @@ export default function NewPasswordPage() {
         <img src={logo} alt="Logo" className="w-24 h-auto mb-4" />
         <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">Create New Password</h2>
         <form className="w-full max-w-xs mx-auto" onSubmit={handleSubmit}>
-          <div className="mb-4 relative">
-            <InPuts
-              placeholder="Enter password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="pr-10"
-              type={showPassword ? 'text' : 'password'}
-              error={errors.password}
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-primary-800"
-              onClick={() => setShowPassword((prev) => !prev)}
-              tabIndex={-1}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-            >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
-            </button>
+          {/* Password Field */}
+          <div className="mb-4">
+            <div className="relative">
+              <InPuts
+                placeholder="Enter password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="pr-10"
+                type={showPassword ? 'text' : 'password'}
+                error={undefined}
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-primary-800"
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={-1}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+            {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
           </div>
-          <div className="mb-6 relative">
-            <InPuts
-              placeholder="Retype your Password"
-              name="retypePassword"
-              value={retypePassword}
-              onChange={(e) => setRetypePassword(e.target.value)}
-              className="pr-10"
-              type={showRetype ? 'text' : 'password'}
-              error={errors.retype}
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-primary-800"
-              onClick={() => setShowRetype((prev) => !prev)}
-              tabIndex={-1}
-              aria-label={showRetype ? 'Hide password' : 'Show password'}
-            >
-              {showRetype ? <FiEye /> : <FiEyeOff />}
-            </button>
+          {/* Retype Password Field */}
+          <div className="mb-6">
+            <div className="relative">
+              <InPuts
+                placeholder="Retype your Password"
+                name="retypePassword"
+                value={retypePassword}
+                onChange={(e) => setRetypePassword(e.target.value)}
+                className="pr-10"
+                type={showRetype ? 'text' : 'password'}
+                error={undefined}
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-primary-800"
+                onClick={() => setShowRetype((prev) => !prev)}
+                tabIndex={-1}
+                aria-label={showRetype ? 'Hide password' : 'Show password'}
+              >
+                {showRetype ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+            {errors.retype && <span className="text-red-500 text-sm">{errors.retype}</span>}
           </div>
           <Button type="submit" className="w-full bg-primary-800 text-white py-2 rounded-md mb-2">
             Continue

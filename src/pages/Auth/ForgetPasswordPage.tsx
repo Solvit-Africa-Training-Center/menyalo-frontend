@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../assets/LOGO_new.png';
+import logo from '../../assets/Logodark.png';
 import forgetImg from '../../assets/forget.jpg';
 import InPuts from '../../components/InPuts';
 import Button from '../../components/Button';

@@ -3,7 +3,7 @@ import InPuts from '../../components/InPuts';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import LOGO_new from '../../assets/LOGO_new.png';
+import LOGO_new from '../../assets/Logodark.png';
 import { useNavigate } from 'react-router-dom';
 import logoA from '../../assets/logoA.jpg';
 
