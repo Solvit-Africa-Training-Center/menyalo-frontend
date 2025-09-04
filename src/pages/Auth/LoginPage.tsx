@@ -21,7 +21,7 @@ const handleSubmit = (e: React.FormEvent) => {
   if (!form.password) newErrors.password = 'Password is required';
   setErrors(newErrors);
   if (Object.keys(newErrors).length === 0) {
-    navigate('/home');
+    navigate('/feed');
   }
 };
 

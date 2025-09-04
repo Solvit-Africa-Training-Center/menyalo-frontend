@@ -5,6 +5,7 @@ import RegisterPage from '../pages/Auth/RegisterPage';
 import ForgetPasswordPage from '../pages/Auth/ForgetPasswordPage';
 import VerificationPage from '../pages/Auth/verificationPage';
 import NewPasswordPage from '../pages/Auth/NewPasswordPage';
+import Feed from '../pages/Feed';
 export default function AppRoutes() {
   return (
   <Routes>
@@ -14,6 +15,7 @@ export default function AppRoutes() {
     <Route path="/forget-password" element={<ForgetPasswordPage />} />
     <Route path="/verification" element={<VerificationPage />} />
     <Route path="/new-password" element={<NewPasswordPage />} />
+    <Route path="/feed" element={<Feed />} />
   </Routes>
 );
 }
