@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../../assets/LOGO_new.png';
-import forgetImg from '../../assets/forget.jpg'; 
+import forgetImg from '../../assets/forget.jpg';
 import InPuts from '../../components/InPuts';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ export default function ForgetPasswordPage() {
       setError('Please enter correct email');
     } else {
       setError('');
+      navigate('/verification');
     }
   };
 
@@ -30,7 +31,6 @@ export default function ForgetPasswordPage() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 0 }}
         />
-        {/* Optional: Add a semi-transparent overlay for contrast */}
         <div className="absolute inset-0 bg-primary-800/75" style={{ zIndex: 1 }} />
         <div className="relative z-10 w-full"></div>
       </div>
@@ -42,15 +42,17 @@ export default function ForgetPasswordPage() {
             placeholder="Enter your email address"
             name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError('');
+            }}
             className="mb-4"
-            error={undefined}
+            error={error}
           />
-          {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
-          <div className='mb-4 text-secondary-300 text-sm'>
+          <div className="mb-4 text-secondary-300 text-sm">
             <p>Please enter correct email</p>
           </div>
-          <Button type="submit" className="w-full bg-primary-800 text-white py-2 rounded-md mb-2" onClick={() => navigate('/verification')}>
+          <Button type="submit" className="w-full bg-primary-800 text-white py-2 rounded-md mb-2">
             Continue
           </Button>
         </form>

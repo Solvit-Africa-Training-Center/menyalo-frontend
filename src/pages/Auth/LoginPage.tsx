@@ -93,9 +93,9 @@ const handleSubmit = (e: React.FormEvent) => {
           </Button>
         </form>
         <div className="flex items-center w-full max-w-xs mx-auto my-4">
-          <hr className="flex-grow border-secondary-200" />
+          <hr className="flex-grow border-secondary-300" />
           <span className="mx-2 text-secondary-300 text-sm">or continue</span>
-          <hr className="flex-grow border-secondary-200" />
+          <hr className="flex-grow border-secondary-300" />
         </div>
         <div className="w-full max-w-xs mx-auto">
           <Button

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function VerificationPage() {
   const [codes, setCodes] = useState(['', '', '', '']);
+  const [error, setError] = useState('');
   const inputsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ export default function VerificationPage() {
     const newCodes = [...codes];
     newCodes[index] = value;
     setCodes(newCodes);
+    setError('');
     if (value && index < 3) {
       // @ts-ignore
       inputsRef[index + 1].current.focus();
@@ -26,12 +28,16 @@ export default function VerificationPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle verification logic here
+    if (codes.some((c) => c === '')) {
+      setError('Please enter the complete code');
+      return;
+    }
+    setError('');
+    navigate('/new-password');
   };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
-      {/* Left Side */}
       <div className="hidden lg:flex items-center justify-center bg-secondary-300 lg:w-1/2 p-0 min-h-[30vh] lg:min-h-screen relative overflow-hidden">
         <img
           src={verificationBg}
@@ -42,16 +48,15 @@ export default function VerificationPage() {
         <div className="absolute inset-0 bg-primary-800/75" style={{ zIndex: 1 }} />
         <div className="relative z-10 w-full"></div>
       </div>
-      {/* Right Side */}
       <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-6 lg:p-12 min-h-[70vh] lg:min-h-screen">
         <img src={logo} alt="Logo" className="w-24 h-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">Forget Password</h2>
+        <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">Verification Code</h2>
         <div className="w-full max-w-xs mx-auto">
-          <div className="bg-secondary-200 text-secondary-300 text-center rounded mb-6 py-2 px-2 font-medium">
+          <div className="bg-secondary-300 text-secondary-200 text-center rounded mb-6 py-2 px-2 font-medium">
             We've send code to your email. please enter it below to continue
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="flex justify-center gap-4 mb-4">
+            <div className="flex justify-center gap-4 mb-2">
               {codes.map((code, idx) => (
                 <input
                   key={idx}
@@ -65,6 +70,9 @@ export default function VerificationPage() {
                 />
               ))}
             </div>
+            {error && (
+              <div className="text-red-500 text-sm text-center mb-2">{error}</div>
+            )}
             <div className="text-center text-secondary-300 text-sm mb-4">
               Don’t get code?{' '}
               <button
