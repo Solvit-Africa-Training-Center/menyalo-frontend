@@ -10,7 +10,6 @@ export default function GeneralFoot() {
   return (
     <div className="bg-primary-800 text-white">
       <div className="bg-primary-800 text-white flex flex-wrap justify-evenly px-4 sm:px-10 py-5">
-        
         <div className="w-full sm:w-1/3 mb-5 sm:mb-0 text-center sm:text-left">
           <h3 className="font-semibold mb-5">About Us</h3>
           <p className="font-light mt-5">
@@ -53,7 +52,6 @@ export default function GeneralFoot() {
           </div>
         </div>
 
-        
         <div className="w-full sm:w-1/3 mb-5 sm:mb-0 text-center sm:text-left">
           <h3 className="font-semibold mb-5">Quick Links</h3>
           <div className="block font-medium">

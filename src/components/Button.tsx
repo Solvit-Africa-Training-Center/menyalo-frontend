@@ -10,18 +10,18 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
 }) => {
   const baseClasses =
-    'font-medium rounded-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'font-medium rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variantClasses = {
-    primary: 'bg-primary-50 text-white hover:bg-primary-100 focus:ring-primary-50',
-    secondary: 'bg-secondary-50 text-white hover:bg-secondary-100 focus:ring-secondary-50',
+    primary: 'bg-primary-50 text-primary-800 hover:bg-primary-100 focus:ring-primary-50',
+    secondary: 'bg-secondary-50 text-primary-800 hover:bg-secondary-100 focus:ring-secondary-50',
     outline:
-      'border-2 border-primary-50 text-primary-50 hover:bg-primary-50 hover:text-white focus:ring-primary-50',
+      'border-1 border-primary-50 text-primary-50 hover:bg-primary-50 hover:text-primary-600 focus:ring-primary-50',
   };
 
   const sizeClasses = {
     sm: 'p-2 text-sm',
-    md: 'p-3 text-base',
+    md: 'p-3 text-md',
     lg: 'p-4 text-lg',
   };
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
