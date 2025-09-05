@@ -8,7 +8,7 @@ export default function Hero() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <section
-      className="h-full relative bg-cover bg-center bg-no-repeat "
+      className="h-screen relative bg-cover bg-center bg-no-repeat "
       style={{
         backgroundImage: `url(${HeroImage})`,
       }}
@@ -17,27 +17,27 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary-900  via-primary-800 to-transparent"></div>
 
       {/* Content */}
-      <nav className="relative z-10 flex justify-between items-center px-8 border-b-0 py-1">
+      <nav className="relative z-10 flex justify-between items-center px-4 sm:px-8 py-4">
         {/* Logo Section */}
-        <div className="w-20 h-20 p-2">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 p-2">
           <img src={Logo} alt="Logo" />
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex md:items-center gap-6 text-white text-sm font-medium">
-          <a href="#process" className="hover:text-primary-500 text-white">
+        <div className="hidden md:flex md:items-center gap-4 lg:gap-6 text-white text-sm lg:text-base font-medium">
+          <a href="#process" className="hover:text-primary-500">
             How it Works
           </a>
-          <a href="#features" className="hover:text-primary-500 text-white">
+          <a href="#features" className="hover:text-primary-500">
             Features
           </a>
-          <a href="#audience" className="hover:text-primary-500 text-white">
+          <a href="#audience" className="hover:text-primary-500">
             Who it's For
           </a>
         </div>
 
         {/* Buttons */}
-        <div className="hidden md:flex gap-4">
+        <div className="hidden md:flex gap-2 lg:gap-4">
           <Button
             variant="outline"
             size="sm"
@@ -60,7 +60,7 @@ export default function Hero() {
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-primary-800 focus:outline-none"
+            className="text-white focus:outline-none"
           >
             <svg
               className="w-6 h-6"
@@ -83,7 +83,7 @@ export default function Hero() {
         <div
           className={`${
             isMenuOpen ? 'block' : 'hidden'
-          } md:hidden absolute top-full left-0 w-full bg-primary-800 text-white text-sm font-medium`}
+          } md:hidden relative top-full left-0 w-full bg-primary-800 text-white text-sm font-medium z-50`}
         >
           <div className="flex flex-col text-center gap-4 py-4">
             <a href="#process" className="hover:text-primary-500">
@@ -103,24 +103,26 @@ export default function Hero() {
             >
               Register
             </Button>
-            <Button variant="outline" size="sm" className=" text-white h-10 w-full" type="button">
+            <Button variant="outline" size="sm" className="text-white h-10 w-full" type="button">
               Login
             </Button>
           </div>
         </div>
       </nav>
-      <div className="relative z-10 grid grid-cols-4 h-full">
-        <div className="col-span-3 py-14 px-8">
-          <h1 className="text-white text-5xl font-medium pb-3">
+
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 h-full">
+        <div className="col-span-1 md:col-span-3 py-12 px-6 sm:px-12">
+          <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-medium pb-3">
             Know Your Laws. <br />
             Empower Your Rights.
           </h1>
-          <p className="text-white font-light text-xl">
+          <p className="text-white font-light text-base sm:text-lg md:text-xl">
             MenyaLo transforms the Rwanda Law Gazette into a searchable, <br />
             readable, and AI-powered platform, connecting citizens, <br />
             startups, and legal experts through verified insights and <br />
             community support.
           </p>
+
           <div className="pt-10 w-full md:w-3/4 lg:w-1/2">
             <SearchBar
               placeholder="Search for laws, regulations, and legal topics..."
