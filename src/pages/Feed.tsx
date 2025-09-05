@@ -6,7 +6,8 @@ import lowbook from '../assets/law-books.png';
 import AICard from '../components/AICard';
 import { FaBalanceScale, FaUserShield, FaBuilding, FaGavel, FaBook } from 'react-icons/fa';
 import SearchBar from '../components/SearchBar';
-
+import feed from '../assets/on-feed.png';
+import states from '../assets/states-woman.png';
 const lawCategories = [
   {
     icon: <FaBook />,
@@ -44,25 +45,25 @@ const lawCategories = [
 
 const rightFirms = [
   {
-    logo: 'https://www.figma.com/design/1HfjTbYKS5bzKlD2dqHHZG/MenyaLoProject?node-id=3710-461&t=4MDm9yhhwq7D8mHh-0',
+    logo: 'src/assets/states-woman.png',
     name: 'Legal Solutions Inc.',
     subtitle: 'Specializes corporates law',
     verified: true,
   },
   {
-    logo: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80',
+    logo: 'src/assets/lebrige-firms.png',
     name: 'IP Guardians',
     subtitle: 'Expert intellectual property',
     verified: true,
   },
   {
-    logo: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80',
+    logo: 'src/assets/logoA.jpg',
     name: 'Family & Advocates',
     subtitle: 'Focus family and estatelaw',
     verified: true,
   },
   {
-    logo: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80',
+    logo: 'src/assets/on-feed.png',
     name: 'CivicShield Legal',
     subtitle: 'Corporate Law Firms',
     verified: true,
@@ -142,11 +143,11 @@ export default function Feed() {
           />
           <hr className="border-primary-200 border-t-2" />
           <FeedCard
-            firmLogo="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
+            firmLogo={states}
             firmName="LexBridge  Patterns Firm"
             title="Navigating Startup Legal"
             description="A Guide entrepreneur on common legal and how to structure thier ventures for long term success ."
-            image={lowbook}
+            image={feed}
             views="1.2k"
             comments={20}
             date="June 16,2025"

@@ -29,14 +29,14 @@ const FeedCard: React.FC<FeedCardProps> = ({
             alt={firmName}
             className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border object-cover"
           />
-          <span className="text-secondary-400 text-base sm:text-xl font-normal">{firmName}</span>
+          <span className="text-secondary-300 text-base sm:text-xl font-normal">{firmName}</span>
+          {isVerified && (
+            <FaCheckCircle className="text-primary-800 text-base sm:text-xl" title="Verified" />
+          )}
         </div>
         {/* Title & Verified */}
         <div className="flex items-center gap-1 sm:gap-2 mb-1">
           <h2 className="text-lg sm:text-2xl font-bold text-primary-900">{title}</h2>
-          {isVerified && (
-            <FaCheckCircle className="text-primary-800 text-base sm:text-xl" title="Verified" />
-          )}
         </div>
         {/* Description */}
         <div className="block text-secondary-300 text-base sm:text-[22px] leading-snug font-normal mt-1 mb-2">
@@ -44,15 +44,15 @@ const FeedCard: React.FC<FeedCardProps> = ({
         </div>
         {/* Footer: Stats & Actions */}
         <div className="flex items-center gap-3 sm:gap-6 mt-2">
-          <div className="flex items-center gap-1 text-secondary-400 text-xs sm:text-sm">
+          <div className="flex items-center gap-1 text-secondary-300 text-xs sm:text-sm">
             <FaArrowUp className="text-sm sm:text-base" />
             <span>{views}</span>
           </div>
-          <div className="flex items-center gap-1 text-secondary-400 text-xs sm:text-sm">
+          <div className="flex items-center gap-1 text-secondary-300 text-xs sm:text-sm">
             <FaRegEnvelope className="text-sm sm:text-base" />
             <span>{comments}</span>
           </div>
-          <span className="text-secondary-400 text-xs sm:text-sm">{date}</span>
+          <span className="text-secondary-300 text-xs sm:text-sm">{date}</span>
           <button className="ml-auto" onClick={onBookmark} aria-label="Bookmark">
             {isBookmarked ? (
               <BsBookmarkFill className="text-primary-800 text-base sm:text-xl" />
@@ -61,7 +61,7 @@ const FeedCard: React.FC<FeedCardProps> = ({
             )}
           </button>
           <button className="ml-2" onClick={onMoreOptions} aria-label="More options">
-            <FiMoreHorizontal className="text-secondary-400 text-base sm:text-xl" />
+            <FiMoreHorizontal className="text-secondary-300 text-base sm:text-xl" />
           </button>
         </div>
       </div>
