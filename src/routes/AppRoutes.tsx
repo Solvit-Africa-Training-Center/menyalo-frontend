@@ -6,6 +6,7 @@ import ForgetPasswordPage from '../pages/Auth/ForgetPasswordPage';
 import VerificationPage from '../pages/Auth/verificationPage';
 import NewPasswordPage from '../pages/Auth/NewPasswordPage';
 import Feed from '../pages/Feed';
+
 export default function AppRoutes() {
   return (
   <Routes>

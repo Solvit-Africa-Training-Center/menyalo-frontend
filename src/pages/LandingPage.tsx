@@ -9,12 +9,18 @@ export default function LandingPage() {
   return (
     <div>
       {/* <Navbar /> */}
- 
+
       <Hero />
 
-      <Process />
-      <Feature />
-      <Audience />
+      <div id="process">
+        <Process />
+      </div>
+      <div id="features">
+        <Feature />
+      </div>
+      <div id="audience">
+        <Audience />
+      </div>
       <CTASection />
 
       <div className="bg-primary-800 py-8">

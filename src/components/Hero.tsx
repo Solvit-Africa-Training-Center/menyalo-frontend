@@ -3,9 +3,11 @@ import Button from './Button';
 import HeroImage from '../assets/HeroImage.jpg';
 import { useState } from 'react';
 import Logo from '../assets/Logo.png'; 
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Hero() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
   return (
     <section
       className="h-screen relative bg-cover bg-center bg-no-repeat "
@@ -43,6 +45,9 @@ export default function Hero() {
             size="sm"
             className="bg-white text-primary-800 border-primary-800 h-10 w-20"
             type="button"
+            onClick={() => {
+              navigate('/register');
+            }}
           >
             Register
           </Button>
@@ -51,6 +56,9 @@ export default function Hero() {
             size="sm"
             className="bg-transparent text-white border-white h-10 w-20"
             type="button"
+            onClick={() => {
+              navigate('/login');
+            }}
           >
             Login
           </Button>
