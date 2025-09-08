@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logodark from '../assets/Logodark.png';
 import profile from '../assets/profile.jpg';
 import { useState } from 'react';
@@ -21,9 +22,11 @@ export default function GeneralNav() {
   };
 
   return (
-    <nav className="bg-white text-primary-500 border-b-2 border-primary-800/20 flex items-center justify-between px-4 md:px-10 shadow">
+    <nav className="fixed top-0 left-0 w-full bg-white text-primary-500 border-b-2 border-primary-800/20 flex items-center justify-between px-4 md:px-10 shadow z-50">
       <div className="w-12 h-12 md:w-15 md:h-15 p-2">
-        <img src={Logodark} alt="Logo" />
+        <Link to="/">
+          <img src={Logodark} alt="Logo" />
+        </Link>
       </div>
 
       <div
@@ -31,18 +34,18 @@ export default function GeneralNav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } md:flex gap-8 font-bold absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow md:shadow-none p-4 md:p-0`}
       >
-        <a href="#" className="text-primary-700 font-medium pb-4 block md:inline">
+        <Link to="/feed" className="text-primary-700 font-medium pb-4 block md:inline">
           Feed
-        </a>
-        <a href="#" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+        </Link>
+        <Link to="/firms" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
           Firms
-        </a>
-        <a href="#" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
-          Organization
-        </a>
-        <a href="#" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+        </Link>
+        <Link to="/ask-ai" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+          Ask AI
+        </Link>
+        <Link to="/community" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
           Community
-        </a>
+        </Link>
       </div>
 
       <div className="flex items-center gap-4">
@@ -79,9 +82,11 @@ export default function GeneralNav() {
           )}
         </div>
 
-        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 flex items-center justify-center">
-          <img src={profile} alt="Avatar" className="w-full h-full rounded-full object-cover" />
-        </div>
+        <Link to="/user">
+          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 flex items-center justify-center">
+            <img src={profile} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+          </div>
+        </Link>
       </div>
 
       <div className="md:hidden">

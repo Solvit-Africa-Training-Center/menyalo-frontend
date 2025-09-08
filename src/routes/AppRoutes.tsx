@@ -6,17 +6,19 @@ import ForgetPasswordPage from '../pages/Auth/ForgetPasswordPage';
 import VerificationPage from '../pages/Auth/verificationPage';
 import NewPasswordPage from '../pages/Auth/NewPasswordPage';
 import Feed from '../pages/Feed';
+import Userprofile from '../pages/Userprofile';
 
 export default function AppRoutes() {
   return (
-  <Routes>
-    <Route path="/" element={<LandingPage />} />
-    <Route path="/login" element={<LoginPage />} />
-    <Route path="/register" element={<RegisterPage />} />
-    <Route path="/forget-password" element={<ForgetPasswordPage />} />
-    <Route path="/verification" element={<VerificationPage />} />
-    <Route path="/new-password" element={<NewPasswordPage />} />
-    <Route path="/feed" element={<Feed />} />
-  </Routes>
-);
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forget-password" element={<ForgetPasswordPage />} />
+      <Route path="/verification" element={<VerificationPage />} />
+      <Route path="/new-password" element={<NewPasswordPage />} />
+      <Route path="/feed" element={<Feed />} />
+      <Route path="/user" element={<Userprofile />} />
+    </Routes>
+  );
 }

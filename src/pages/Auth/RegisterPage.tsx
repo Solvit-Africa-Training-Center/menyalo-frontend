@@ -20,7 +20,7 @@ export default function RegisterPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: '' }); 
+    setErrors({ ...errors, [e.target.name]: '' });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,7 +50,6 @@ export default function RegisterPage() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-
       alert('Registration successful!');
     }
   };

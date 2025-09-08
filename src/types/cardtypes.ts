@@ -9,5 +9,4 @@ export interface CardProps {
   titleClassName?: string;
   descriptionClassName?: string;
   bulletPointClassName?: string;
-
 }

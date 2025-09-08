@@ -1,68 +1,58 @@
-import { BsFillTelephoneFill } from 'react-icons/bs';
-import { MdEmail } from 'react-icons/md';
-import { FaLocationDot } from 'react-icons/fa6';
-import { FaLinkedin } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
-import { FaFacebookF } from 'react-icons/fa6';
-import { FaInstagram } from 'react-icons/fa';
+// import { BsFillTelephoneFill } from 'react-icons/bs';
+// import { MdEmail } from 'react-icons/md';
+// import { FaLocationDot } from 'react-icons/fa6';
+// import { FaLinkedin } from 'react-icons/fa';
+// import { FaXTwitter } from 'react-icons/fa6';
+// import { FaFacebookF } from 'react-icons/fa6';
+// import { FaInstagram } from 'react-icons/fa';
+import Logo from '../assets/Logo.png';
+import Button from './Button';
 
 export default function GeneralFoot() {
   return (
-    <div className="bg-primary-800 text-white">
-      <div className="bg-primary-800 text-white flex flex-wrap justify-evenly px-4 sm:px-10 py-5">
-        <div className="w-full sm:w-1/3 mb-5 sm:mb-0 text-center sm:text-left">
-          <h3 className="font-semibold mb-5">About Us</h3>
-          <p className="font-light mt-5">
-            Rwanda’s leading legal education platform-making laws simple <br /> and rights
+    <div className="bg-primary-900 text-white">
+      <div className="bg-primary-900 text-white flex flex-col sm:flex-row justify-between px-8 sm:px-20 py-10 gap-15">
+        {/* Logo Section */}
+        <div className=" text-left sm:text-left">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 p-2 mx-auto sm:mx-0">
+            <img src={Logo} alt="Logo" />
+          </div>
+          <p className="font-light mt-5 mb-5">
+            Rwanda’s leading legal education platform-making laws simple and rights <br />{' '}
             accessible to all, in Kinyarwanda, English and French.
           </p>
-          <div className="flex justify-center sm:justify-start items-center gap-4 mt-5">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-300 hover:text-white"
+          <div className="flex flex-col sm:flex-row justify-start gap-4 mt-3">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-white text-primary-800 px-24 text-left w-full sm:w-auto"
+              type="button"
             >
-              <FaFacebookF size={15} />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-300 hover:text-white"
+              Your Email
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-primary-900 text-white px-4 text-left w-full sm:w-auto"
+              type="button"
             >
-              <FaXTwitter size={15} />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-300 hover:text-white"
-            >
-              <FaLinkedin size={15} />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-300 hover:text-white"
-            >
-              <FaInstagram size={15} />
-            </a>
+              Subscribe
+            </Button>
           </div>
         </div>
 
-        <div className="w-full sm:w-1/3 mb-5 sm:mb-0 text-center sm:text-left">
-          <h3 className="font-semibold mb-5">Quick Links</h3>
+        {/* Explore Section */}
+        <div className="flex-1 text-center sm:text-left">
+          <h3 className="font-semibold mb-5">Explore</h3>
           <div className="block font-medium">
             <a href="#" className="text-white block font-light">
-              Feed
+              Law Gazette
             </a>
             <a href="#" className="text-white block font-light">
-              Firms
+              Find Firms
             </a>
             <a href="#" className="text-white block font-light">
-              Organization
+              AI Assistant
             </a>
             <a href="#" className="text-white block font-light">
               Community
@@ -70,25 +60,49 @@ export default function GeneralFoot() {
           </div>
         </div>
 
-        <div className="w-full sm:w-1/3 text-center sm:text-left">
-          <h3 className="font-semibold mb-5">Contact</h3>
-          <div>
-            <p className="flex justify-center sm:justify-start items-center gap-2 font-light">
-              <BsFillTelephoneFill /> +250 7808 888 900
-            </p>
-            <p className="flex justify-center sm:justify-start items-center gap-2 font-light">
-              <MdEmail /> menyalo@gmail.com
-            </p>
-            <p className="flex justify-center sm:justify-start items-center gap-2 font-light">
-              <FaLocationDot /> Kigali, Rwanda
-            </p>
+        {/* About Section */}
+        <div className="flex-1 text-center sm:text-left">
+          <h3 className="font-semibold mb-5">About</h3>
+          <div className="block font-medium">
+            <a href="#" className="text-white block font-light">
+              Who it's For
+            </a>
+            <a href="#" className="text-white block font-light">
+              Features
+            </a>
+          </div>
+        </div>
+
+        {/* Legal Section */}
+        <div className="flex-1 text-center sm:text-left">
+          <h3 className="font-semibold mb-5">Legal</h3>
+          <div className="block font-medium">
+            <a href="#" className="text-white block font-light">
+              Terms of Service
+            </a>
+            <a href="#" className="text-white block font-light">
+              Privacy Policy
+            </a>
           </div>
         </div>
       </div>
-
       {/* Divider and Footer Text */}
-      <hr className="border-gray-500 border-t-2 mx-auto w-11/12 pb-2" />
-      <p className="text-gray-300 text-center pb-2">© 2025 Know Your Laws. All rights reserved.</p>
+      <hr className="border-gray-700 border-t-2 mx-auto w-full pb-2" />
+      <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left px-5 py-3">
+        <div>
+          <p className="text-gray-300 pb-2 font-light">
+            © 2025 Know Your Laws. All rights reserved.
+          </p>
+        </div>
+        <div className="font-light flex gap-3">
+          <a href="#" className="hover:underline">
+            Twitter
+          </a>
+          <a href="#" className="hover:underline">
+            LinkedIn
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

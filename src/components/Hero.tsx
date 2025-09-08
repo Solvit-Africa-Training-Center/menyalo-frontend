@@ -2,12 +2,12 @@ import SearchBar from './SearchBar';
 import Button from './Button';
 import HeroImage from '../assets/HeroImage.jpg';
 import { useState } from 'react';
-import Logo from '../assets/Logo.png'; 
-import { Navigate, useNavigate } from 'react-router-dom';
+import Logo from '../assets/Logo.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <section
       className="h-screen relative bg-cover bg-center bg-no-repeat "

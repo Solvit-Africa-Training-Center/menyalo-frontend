@@ -4,6 +4,7 @@ import Audience from '../components/Audience';
 import CTASection from '../components/CTASection';
 import Process from '../components/Process';
 import Hero from '../components/Hero';
+import GeneralFoot from '../components/GeneralFoot';
 
 export default function LandingPage() {
   return (
@@ -23,12 +24,13 @@ export default function LandingPage() {
       </div>
       <CTASection />
 
-      <div className="bg-primary-800 py-8">
+      {/* <div className="bg-primary-800 py-8">
         <hr className="border-gray-500 border-t-2 mx-auto w-11/12" />
         <p className="text-gray-300 text-center pt-4">
           © 2025 Know Your Laws. All rights reserved.
         </p>
-      </div>
+      </div> */}
+      <GeneralFoot />
     </div>
   );
 }

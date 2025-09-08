@@ -13,17 +13,16 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  const newErrors: { email?: string; password?: string } = {};
-  if (!form.email) newErrors.email = 'Email is required';
-  if (!form.password) newErrors.password = 'Password is required';
-  setErrors(newErrors);
-  if (Object.keys(newErrors).length === 0) {
-    navigate('/feed');
-  }
-};
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: { email?: string; password?: string } = {};
+    if (!form.email) newErrors.email = 'Email is required';
+    if (!form.password) newErrors.password = 'Password is required';
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      navigate('/feed');
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
@@ -82,9 +81,13 @@ const handleSubmit = (e: React.FormEvent) => {
             {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
           </div>
           <div className="text-right mb-4">
-            <a href="#" className="text-secondary-300 hover:underline text-sm" onClick={() => {
-              navigate('/forget-password');
-            }}>
+            <a
+              href="#"
+              className="text-secondary-300 hover:underline text-sm"
+              onClick={() => {
+                navigate('/forget-password');
+              }}
+            >
               Forget password?
             </a>
           </div>

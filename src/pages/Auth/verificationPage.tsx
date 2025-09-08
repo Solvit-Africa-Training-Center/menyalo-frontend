@@ -70,9 +70,7 @@ export default function VerificationPage() {
                 />
               ))}
             </div>
-            {error && (
-              <div className="text-red-500 text-sm text-center mb-2">{error}</div>
-            )}
+            {error && <div className="text-red-500 text-sm text-center mb-2">{error}</div>}
             <div className="text-center text-secondary-300 text-sm mb-4">
               Don’t get code?{' '}
               <button

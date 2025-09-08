@@ -31,7 +31,6 @@ export default function Feature() {
           className="bg-style-500 text-primary-800 w-full md:w-1/3"
           titleClassName="text-primary-800 text-lg md:text-xl font-bold text-left"
           bulletPointClassName="list-disc text-black/85 text-sm md:text-md"
-          
         />
         <Cards
           title="For Organizations"
