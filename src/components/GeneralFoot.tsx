@@ -90,9 +90,7 @@ export default function GeneralFoot() {
       <hr className="border-gray-700 border-t-2 mx-auto w-full pb-2" />
       <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left px-5 py-3">
         <div>
-          <p className="text-gray-300 pb-2 font-light">
-            © 2025 Know Your Laws. All rights reserved.
-          </p>
+          <p className="text-gray-300 pb-2 font-light">© 2025 Know Your Laws. All rights reserved.</p>
         </div>
         <div className="font-light flex gap-3">
           <a href="#" className="hover:underline">
