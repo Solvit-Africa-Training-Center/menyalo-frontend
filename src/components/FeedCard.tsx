@@ -2,7 +2,9 @@ import React from 'react';
 import type { FeedCardProps } from '../types/feedCardtypes';
 import { FiBookmark, FiMoreHorizontal } from 'react-icons/fi';
 import { BsBookmarkFill } from 'react-icons/bs';
-import { FaCheckCircle, FaArrowUp, FaRegEnvelope } from 'react-icons/fa';
+import { FaArrowUp, FaRegEnvelope } from 'react-icons/fa';
+import { VscVerifiedFilled } from 'react-icons/vsc';
+
 
 const FeedCard: React.FC<FeedCardProps> = ({
   firmLogo,
@@ -31,7 +33,7 @@ const FeedCard: React.FC<FeedCardProps> = ({
           />
           <span className="text-secondary-300 text-base sm:text-xl font-normal">{firmName}</span>
           {isVerified && (
-            <FaCheckCircle className="text-primary-800 text-base sm:text-xl" title="Verified" />
+            <VscVerifiedFilled className="text-primary-800 text-base sm:text-xl" title="Verified" />
           )}
         </div>
         {/* Title & Verified */}

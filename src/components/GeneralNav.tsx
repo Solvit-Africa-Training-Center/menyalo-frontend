@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logodark from '../assets/Logodark.png';
 import profile from '../assets/profile.jpg';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ export default function GeneralNav() {
   const [language, setLanguage] = useState('EN');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -34,16 +35,44 @@ export default function GeneralNav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } md:flex gap-8 font-bold absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow md:shadow-none p-4 md:p-0`}
       >
-        <Link to="/feed" className="text-primary-700 font-medium pb-4 block md:inline">
+        <Link
+          to="/feed"
+          className={`font-medium pb-4 block md:inline ${
+            location.pathname === '/feed'
+              ? 'text-primary-700'
+              : 'text-gray-600/75 hover:text-gray-900'
+          }`}
+        >
           Feed
         </Link>
-        <Link to="/firms" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+        <Link
+          to="/firms"
+          className={`font-medium pb-4 block md:inline ${
+            location.pathname === '/firms'
+              ? 'text-primary-700'
+              : 'text-gray-600/75 hover:text-gray-900'
+          }`}
+        >
           Firms
         </Link>
-        <Link to="/ask-ai" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+        <Link
+          to="/ask-ai"
+          className={`font-medium pb-4 block md:inline ${
+            location.pathname === '/ask-ai'
+              ? 'text-primary-700'
+              : 'text-gray-600/75 hover:text-gray-900'
+          }`}
+        >
           Ask AI
         </Link>
-        <Link to="/community" className="text-gray-600/75 hover:text-gray-900 pb-4 block md:inline">
+        <Link
+          to="/community"
+          className={`font-medium pb-4 block md:inline ${
+            location.pathname === '/community'
+              ? 'text-primary-700'
+              : 'text-gray-600/75 hover:text-gray-900'
+          }`}
+        >
           Community
         </Link>
       </div>
