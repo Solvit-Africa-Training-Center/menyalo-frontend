@@ -8,6 +8,8 @@ import { FaBalanceScale, FaUserShield, FaBuilding, FaGavel, FaBook } from 'react
 import SearchBar from '../components/SearchBar';
 import feed from '../assets/on-feed.png';
 import states from '../assets/states-woman.png';
+import { VscVerifiedFilled } from 'react-icons/vsc';
+
 const lawCategories = [
   {
     icon: <FaBook />,
@@ -83,6 +85,8 @@ export default function Feed() {
           lg:grid-cols-10
           h-auto
           min-h-screen
+          mt-14
+          font-sans
         "
       >
         {/* Left (main content) */}
@@ -95,6 +99,8 @@ export default function Feed() {
             lg:h-screen
             overflow-y-auto
             bg-white
+                no-scrollbar
+
           "
         >
           <div className="flex items-center gap-4 lg:gap-8 overflow-x-auto pb-2">
@@ -170,6 +176,8 @@ export default function Feed() {
             h-auto
             lg:h-screen
             overflow-y-auto
+                no-scrollbar
+
           "
         >
           <SearchBar placeholder="Search for articles, firms, and more..." />
@@ -177,11 +185,11 @@ export default function Feed() {
             {lawCategories.map((cat) => (
               <button
                 key={cat.name}
-                className="flex items-center gap-2 bg-secondary-400 text-secondary-50 px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-medium text-base hover:bg-primary-200 transition"
-                style={{ minWidth: '100px' }}
+                className="w-full h-16 flex items-center gap-2 bg-secondary-400 text-secondary-50 px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-medium text-base hover:bg-primary-200 transition"
+                style={{ minWidth: 0 }} // Ensures grid cell controls width
               >
                 <span className="text-primary-800 text-lg font-bold">+</span>
-                {cat.name}
+                <span className="truncate">{cat.name}</span>
               </button>
             ))}
           </div>
@@ -198,7 +206,7 @@ export default function Feed() {
                   <span className="text-base lg:text-lg font-semibold text-gray-600">
                     {firm.name}
                   </span>
-                  {firm.verified && <FaCheckCircle className="text-primary-800 text-base" />}
+                  {firm.verified && <VscVerifiedFilled className="text-primary-800 text-base" />}
                 </div>
                 <div className="text-gray-400 text-sm lg:text-base -mt-1">{firm.subtitle}</div>
               </div>

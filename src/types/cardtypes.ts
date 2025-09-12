@@ -9,4 +9,5 @@ export interface CardProps {
   titleClassName?: string;
   descriptionClassName?: string;
   bulletPointClassName?: string;
+  bulletIcon?: React.ReactNode;
 }

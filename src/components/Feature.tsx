@@ -1,4 +1,6 @@
 import Cards from './Cards';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+
 // import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 export default function Feature() {
@@ -28,9 +30,10 @@ export default function Feature() {
             'Engage in community discussions',
             'Upvote and report posts',
           ]}
+          bulletIcon={<IoIosCheckmarkCircleOutline className="text-green-500 text-lg" />}
           className="bg-style-500 text-primary-800 w-full md:w-1/3"
           titleClassName="text-primary-800 text-lg md:text-xl font-bold text-left"
-          bulletPointClassName="list-disc text-black/85 text-sm md:text-md"
+          bulletPointClassName="text-black/85 text-sm md:text-md"
         />
         <Cards
           title="For Organizations"
@@ -41,6 +44,7 @@ export default function Feature() {
             'Use the AI assistant for legal guidance',
             'Participate in community support',
           ]}
+          bulletIcon={<IoIosCheckmarkCircleOutline className="text-green-500 text-lg" />}
           className="bg-style-500 text-primary-800 w-full md:w-1/3"
           titleClassName="text-primary-800 text-lg md:text-xl font-bold text-left"
           bulletPointClassName=" list-disc text-black/85 text-sm md:text-md"
@@ -54,6 +58,7 @@ export default function Feature() {
             'Annotate laws and flag misinformation',
             'Get recommended to relevant users',
           ]}
+          bulletIcon={<IoIosCheckmarkCircleOutline className="text-green-500 text-lg" />}
           className="bg-style-500 text-primary-800 w-full md:w-1/3"
           titleClassName="text-primary-800 text-lg md:text-xl font-bold text-left"
           bulletPointClassName=" list-disc text-black/85 text-sm md:text-md before:content-[']"

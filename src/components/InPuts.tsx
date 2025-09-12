@@ -7,9 +7,10 @@ interface InPutsProps {
   type?: string;
   placeholder?: string;
   error?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<any>) => void;
   className?: string;
-  onSearch?: (query: any) => void;
+  textarea?: boolean;
+  rows?: number;
 }
 
 const InPuts: React.FC<InPutsProps> = ({
@@ -21,22 +22,37 @@ const InPuts: React.FC<InPutsProps> = ({
   error,
   onChange,
   className = '',
+  textarea = false,
+  rows = 3,
 }) => {
   return (
     <div>
       <label htmlFor={name} className="block text-sm font-medium mb-1">
         {label}
       </label>
-      <input
-        id={name}
-        name={name}
-        value={value}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        className={`block w-full px-3 py-2 rounded-md border border-primary-800/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800  sm:text-sm ${className}`}
-        aria-invalid={!!error}
-      />
+      {textarea ? (
+        <textarea
+          id={name}
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={`block w-full px-3 py-2 rounded-md border border-primary-800/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800 sm:text-sm resize-none ${className}`}
+          rows={rows}
+          aria-invalid={!!error}
+        />
+      ) : (
+        <input
+          id={name}
+          name={name}
+          value={value}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={`block w-full px-3 py-2 rounded-md border border-primary-800/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800 sm:text-sm ${className}`}
+          aria-invalid={!!error}
+        />
+      )}
       {error && <span className="text-red-500 text-sm">{error}</span>}
     </div>
   );

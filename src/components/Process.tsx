@@ -26,7 +26,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex-1 min-w-[300px]"
+            className="flex-1 min-w-[300px]   rounded-lg"
           >
             <Cards
               title="Explore the Gazette"
@@ -36,7 +36,7 @@ export default function Process() {
                   <IoSearch className="text-4xl text-primary-800" />
                 </div>
               }
-              className=" text-md bg-white flex-1 min-w-[300px] shadow py-20"
+              className=" text-md bg-white flex-1 min-w-[300px] shadow py-20 h-[353px]"
               titleClassName="text-primary-800 font-regular"
               descriptionClassName="text-gray-600 "
             />
@@ -46,7 +46,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex-1 min-w-[300px]"
+            className="flex-1 min-w-[300px] h-full rounded-lg"
           >
             <Cards
               title="Ask the AI Assistant"
@@ -66,7 +66,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex-1 min-w-[300px]"
+            className="flex-1 min-w-[300px] h-full rounded-lg"
           >
             <Cards
               title="Connect with Verified Firms"
@@ -86,7 +86,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex-1 min-w-[300px]"
+            className="flex-1 min-w-[300px] h-full rounded-lg"
           >
             <Cards
               title="Join the Community"

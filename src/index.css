@@ -40,3 +40,11 @@
   --color-style-500: oklch(0.9774 0.0042 236.5);
   --color-style-600: oklch(96.648% 0.004545 258.325);
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
