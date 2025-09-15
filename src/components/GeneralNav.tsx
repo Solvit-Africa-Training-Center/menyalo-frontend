@@ -56,7 +56,7 @@ export default function GeneralNav() {
           Firms
         </Link>
         <Link
-          to="/ask-ai"
+          to="/ai"
           className={`font-medium pb-4 block md:inline ${
             location.pathname === '/ask-ai'
               ? 'text-primary-700'
