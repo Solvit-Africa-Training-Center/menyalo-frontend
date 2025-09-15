@@ -4,6 +4,7 @@ import { MdOutlineLibraryBooks } from 'react-icons/md';
 import { BsClockHistory } from 'react-icons/bs';
 import { FiMenu } from 'react-icons/fi';
 import menyaloLogo from '../assets/Logodark.png';
+import { Link } from 'react-router';
 
 export default function AISideBar() {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,9 @@ export default function AISideBar() {
         </div>
         {/* Logo */}
         <div className="mb-8 mt-2 md:mt-0">
-          <img src={menyaloLogo} alt="Menyalo Logo" className="w-16 mx-auto" />
+          <Link to="/">
+            <img src={menyaloLogo} alt="Menyalo Logo" className="w-16 mx-auto" />
+          </Link>
         </div>
         {/* Menu */}
         <nav className="flex flex-col gap-10 w-full px-8">

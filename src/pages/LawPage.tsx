@@ -50,11 +50,7 @@ export default function LawPage() {
           <div className="text-gray-600 mb-4 text-sm">{law.description}</div>
           <div className="flex items-center mb-4">
             <div className="ml-auto">
-              <img
-                src={profile}
-                alt="User"
-                className="w-12 h-12 rounded-full object-cover border-2 border-primary-100 shadow"
-              />
+              
             </div>
           </div>
           <div className="space-y-4 text-[0.97rem] text-gray-700">
