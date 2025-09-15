@@ -9,6 +9,8 @@ import SearchBar from '../components/SearchBar';
 import feed from '../assets/on-feed.png';
 import states from '../assets/states-woman.png';
 import { VscVerifiedFilled } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
+
 
 const lawCategories = [
   {
@@ -76,6 +78,8 @@ const categories = lawCategories.map((cat) => cat.name);
 
 export default function Feed() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const navigate = useNavigate();
+
 
   return (
     <Layout>
@@ -187,6 +191,7 @@ export default function Feed() {
                 key={cat.name}
                 className="w-full h-16 flex items-center gap-2 bg-secondary-400 text-secondary-50 px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-medium text-base hover:bg-primary-200 transition"
                 style={{ minWidth: 0 }} // Ensures grid cell controls width
+                onClick={() => navigate('/law')}
               >
                 <span className="text-primary-800 text-lg font-bold">+</span>
                 <span className="truncate">{cat.name}</span>

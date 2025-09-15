@@ -1,4 +1,5 @@
 import React from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface InPutsProps {
   label?: string;
@@ -31,14 +32,14 @@ const InPuts: React.FC<InPutsProps> = ({
         {label}
       </label>
       {textarea ? (
-        <textarea
+        <TextareaAutosize
           id={name}
           name={name}
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className={`block w-full px-3 py-2 rounded-md border border-primary-800/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800 sm:text-sm resize-none ${className}`}
-          rows={rows}
+          className={`block w-full px-3 py-2 rounded-md border border-primary-800/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800 sm:text-sm ${className}`}
+          minRows={rows}
           aria-invalid={!!error}
         />
       ) : (
