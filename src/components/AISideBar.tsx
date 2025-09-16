@@ -48,15 +48,15 @@ export default function AISideBar() {
         </div>
         {/* Menu */}
         <nav className="flex flex-col gap-10 w-full px-8">
-          <button className="flex items-center gap-3 text-base md:text-lg font-semibold text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
-            <FaRegEdit className="text-[color:var(--color-primary-800)] text-xl" />
+          <button className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
+            <FaRegEdit className="text-[color:var(--color-primary-800)]  text-xl" />
             New chat
           </button>
-          <button className="flex items-center gap-3 text-base md:text-lg font-semibold text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
+          <button className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
             <MdOutlineLibraryBooks className="text-[color:var(--color-primary-800)] text-xl" />
             Library
           </button>
-          <button className="flex items-center gap-3 text-base md:text-lg font-semibold text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
+          <button className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
             <BsClockHistory className="text-[color:var(--color-primary-800)] text-xl" />
             Old chat
           </button>
