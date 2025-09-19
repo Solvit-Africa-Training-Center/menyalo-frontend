@@ -26,11 +26,15 @@ export default function CommunityComment({ comment }: { comment: CommunityCommen
             {comment.author.tag}
           </span>
         )}
-        <span className="text-xs text-[color:var(--color-secondary-300)]">{comment.createdAt}</span>
+        <span className="ml-auto text-xs text-[color:var(--color-secondary-300)]">
+          {comment.createdAt}
+        </span>
       </div>
       <div className="ml-9 text-sm mt-1">{comment.content}</div>
       <div className="ml-9 flex items-center gap-4 text-xs text-[color:var(--color-secondary-300)] mt-1">
-        <span><BiSolidUpvote /> {comment.upvotes}</span>
+        <span>
+          <BiSolidUpvote /> {comment.upvotes}
+        </span>
         <button className="cursor-pointer" onClick={() => setShowReply((v) => !v)}>
           reply
         </button>

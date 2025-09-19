@@ -6,21 +6,100 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import LOGO_new from '../../assets/Logodark.png';
 import { useNavigate } from 'react-router-dom';
 import logoA from '../../assets/logoA.jpg';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useLoginMutation, useLoginwithgoogleMutation } from '../../app/api/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { jwtDecode } from 'jwt-decode';
+
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [login] = useLoginMutation();
+  const [loginwithgoogle] = useLoginwithgoogleMutation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const idToken = (tokenResponse as unknown as { credential?: string }).credential ?? '';
+      try {
+        // Type assertion for backend response
+        const res = (await loginwithgoogle({ idToken }).unwrap()) as { token: string };
+        localStorage.setItem('token', res.token);
+        console.log('Google token', res.token);
+        toast.success('Login successful!', { position: 'top-right' });
+
+        // Type assertion for decoded JWT
+        const decoded = jwtDecode(res.token) as { role?: string };
+        const role = decoded.role;
+        console.log('Decoded role:', role);
+
+        setTimeout(() => {
+          if (role === 'citizen') navigate(`/feed#token=${res.token}`);
+          else if (role === 'law-firm') navigate('/dashboard');
+          else if (role === 'organization') navigate('/organization-dashboard');
+          else navigate('/feed');
+        }, 1500);
+      } catch (err) {
+          console.error('Google login error:', err);
+
+        toast.error('Google login failed.', { position: 'top-right' });
+        setLoading(false);
+      }
+    },
+    onError: () => {
+      toast.error('Google login failed.', { position: 'top-right' });
+    },
+  });
+
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     setForm({ ...form, [e.target.name]: e.target.value });
+     setErrors({ ...errors, [e.target.name]: '' });
+   };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const newErrors: { email?: string; password?: string } = {};
     if (!form.email) newErrors.email = 'Email is required';
     if (!form.password) newErrors.password = 'Password is required';
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      navigate('/feed');
+      try {
+        const res = await login(form).unwrap();
+        localStorage.setItem('token', res.data.token);
+        console.log('token', res.data.token);
+        console.log('role', res.data.role);
+        const decoded: any = jwtDecode(res.data.token);
+        const role = decoded.role;
+        console.log('Decoded role:', role);
+       toast.success('Login successful!', { position: 'top-right' });
+       setTimeout(() => {
+         if (role === 'user') {
+           navigate('/feed');
+         } else if (role === 'law-firm') {
+           navigate('/dashboard');
+         } else if (role === 'organization') {
+           navigate('/organization-dashboard');
+         } else {
+           navigate('/feed');
+         }
+       }, 1500);
+      } catch (err: any) {
+        setErrors({ password: 'Invalid email or password' });
+        toast.error(err?.data?.message || 'Login failed. Please check your credentials.', {
+          position: 'top-right',
+        });
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -54,7 +133,7 @@ export default function LoginPage() {
               name="email"
               value={form.email}
               type="email"
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              onChange={handleChange}
               error={errors.email}
             />
           </div>
@@ -64,9 +143,9 @@ export default function LoginPage() {
                 placeholder="Password"
                 name="password"
                 value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                onChange={handleChange}
                 type={showPassword ? 'text' : 'password'}
-                error={undefined}
+                error={errors.password}
               />
               <button
                 type="button"
@@ -78,7 +157,7 @@ export default function LoginPage() {
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
             </div>
-            {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
+            {/* {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>} */}
           </div>
           <div className="text-right mb-4">
             <a
@@ -91,10 +170,16 @@ export default function LoginPage() {
               Forget password?
             </a>
           </div>
-          <Button type="submit" className="w-full bg-primary-800 text-white py-2 rounded-md mb-2">
-            Log In
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-primary-800 text-white py-2 rounded-md mb-2"
+          >
+            {loading ? 'Logging in...' : 'Login'}
           </Button>
+          
         </form>
+        <ToastContainer />
         <div className="flex items-center w-full max-w-xs mx-auto my-4">
           <hr className="flex-grow border-secondary-300" />
           <span className="mx-2 text-secondary-300 text-sm">or continue</span>
@@ -102,7 +187,7 @@ export default function LoginPage() {
         </div>
         <div className="w-full max-w-xs mx-auto">
           <Button
-            onClick={() => {}}
+            onClick={() => { handleGoogleLogin(); }}
             className="w-full !text-secondary-300 py-2 rounded-md border border-primary-800 bg-white"
             variant="outline"
           >

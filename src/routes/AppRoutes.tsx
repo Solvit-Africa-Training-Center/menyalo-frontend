@@ -13,24 +13,49 @@ import CommunityPage from '../pages/CommunityPage';
 import AIPage from '../pages/AIPage';
 import LawPage from '../pages/LawPage';
 import Dashboard from '../pages/Dashboard';
-
+import LandingPage from '../pages/LandingPage';
+import UsersPage from '../pages/UsersPage';
+import ProtectedRoute from '../components/ProtectedRoute';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      {/* <Route path="/" element={<LandingPage />} /> */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['law-firm']}>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      {/* <Route
+        path="/organization-dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['organization']}>
+            <OrganizationDashboard />
+          </ProtectedRoute>
+        }
+      /> */}
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forget-password" element={<ForgetPasswordPage />} />
       <Route path="/verification" element={<VerificationPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
-      <Route path="/feed" element={<Feed />} />
+      <Route
+        path="/feed"
+        element={
+          <ProtectedRoute allowedRoles={['citizen', 'law-firm', 'organization']}>
+            <Feed />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/user" element={<Userprofile />} />
       <Route path="/firms" element={<FirmPage />} />
       <Route path="/firms/:firmName" element={<FirmProfilePage />} />
       <Route path="/community" element={<CommunityPage />} />
       <Route path="/ai" element={<AIPage />} />
       <Route path="/law" element={<LawPage />} />
+      <Route path="/users" element={<UsersPage />} />
     </Routes>
   );
 }

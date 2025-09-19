@@ -5,6 +5,8 @@ import CTASection from '../components/CTASection';
 import Process from '../components/Process';
 import Hero from '../components/Hero';
 import GeneralFoot from '../components/GeneralFoot';
+import { ToastContainer } from 'react-toastify';
+
 
 export default function LandingPage() {
   return (
@@ -31,6 +33,7 @@ export default function LandingPage() {
         </p>
       </div> */}
       <GeneralFoot />
+      <ToastContainer />
     </div>
   );
 }
