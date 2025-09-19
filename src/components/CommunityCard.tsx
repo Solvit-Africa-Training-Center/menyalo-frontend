@@ -16,6 +16,7 @@ type Props = {
   openComments?: boolean;
   onToggleComments?: () => void;
   onAddComment?: (comment: string) => void;
+  onUpvote?: () => void;
 };
 
 export default function CommunityCard({
@@ -23,6 +24,7 @@ export default function CommunityCard({
   openComments,
   onToggleComments,
   onAddComment,
+  onUpvote,
 }: Props) {
   const [comment, setComment] = useState('');
 
@@ -56,7 +58,7 @@ export default function CommunityCard({
       <div className="text-[color:var(--color-primary-900)] text-sm mb-2">{post.content}</div>
       {/* Actions */}
       <div className="flex items-center gap-6 text-[color:var(--color-secondary-300)] text-xs mb-2">
-        <span className="flex items-center gap-1"><BiSolidUpvote /> {post.upvotes}</span>
+        <span className="flex items-center gap-1" onClick={onUpvote}><BiSolidUpvote /> {post.upvotes}</span>
         <button className="flex items-center gap-1 focus:outline-none" onClick={onToggleComments}>
           <FaCommentDots />
           {post.comments}

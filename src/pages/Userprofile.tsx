@@ -41,14 +41,7 @@ export default function Userprofile() {
               >
                 Edit Profile
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-primary-800 text-primary-800 px-8 w-full sm:w-auto"
-                type="button"
-              >
-                Log Out
-              </Button>
+             
             </div>
 
             {/* About Me Section */}

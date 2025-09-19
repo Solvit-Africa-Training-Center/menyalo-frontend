@@ -3,6 +3,13 @@ import Button from '../../components/Button';
 import InPuts from '../../components/InPuts';
 import { useNavigate } from 'react-router-dom';
 import logoA from '../../assets/logoA.jpg';
+import {
+  useRegisterMutation,
+  useRegisterFirmMutation,
+  useRegisterOrganizationMutation,
+} from '../../app/api/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterPage() {
   const [role, setRole] = useState('');
@@ -11,29 +18,33 @@ export default function RegisterPage() {
     username: '',
     email: '',
     address: '',
-    lawDomain: '',
+    // lawDomain: '',
     registrationNumber: '',
     password: '',
     confirmPassword: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [loading, setLoading] = useState(false);
+  const [register] = useRegisterMutation();
+  const [registerFirm] = useRegisterFirmMutation();
+  const [registerOrganization] = useRegisterOrganizationMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const newErrors: { [key: string]: string } = {};
 
     if (!role) newErrors.role = 'Please select a registration type';
 
     if (role === 'firms' || role === 'organization') {
-      if (!form.username) newErrors.username = 'Organization Name is required';
+      if (!form.username) newErrors.username = 'Name is required';
       if (!form.email) newErrors.email = 'Email is required';
       if (!form.address) newErrors.address = 'Address is required';
-      if (!form.lawDomain) newErrors.lawDomain = 'Law Domain is required';
       if (!form.registrationNumber)
         newErrors.registrationNumber = 'Registration Number is required';
     } else {
@@ -50,7 +61,41 @@ export default function RegisterPage() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert('Registration successful!');
+      let payload: any;
+      if (role === 'firms' || role === 'organization') {
+        payload = {
+          name: form.username, // use 'name' for firm/organization
+          email: form.email,
+          address: form.address,
+          registrationNumber: form.registrationNumber,
+          password: form.password,
+        };
+      } else {
+        payload = {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        };
+      }
+      try {
+        if (role === 'users') {
+          await register(payload).unwrap();
+        } else if (role === 'firms') {
+          await registerFirm(payload).unwrap();
+        } else if (role === 'organization') {
+          await registerOrganization(payload).unwrap();
+        }
+        toast.success('Registration successful!', { position: 'top-right' });
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      } catch (err: any) {
+        toast.error(err?.data?.message || 'Registration failed.', { position: 'top-right' });
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -71,9 +116,6 @@ export default function RegisterPage() {
       </div>
 
       <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-6 lg:p-12 min-h-[70vh] lg:min-h-screen">
-        {/* <div className="flex justify-center mb-6">
-          <img src={LOGO_new} alt="Logo" className="w-24 h-auto" />
-        </div> */}
         <h1 className="text-2xl text-secondary-300 font-bold mb-6 text-center">
           Welcome to MenyaLo
         </h1>
@@ -88,7 +130,7 @@ export default function RegisterPage() {
                 }}
                 className="block w-full px-3 py-2 rounded-md border border-primary-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-800 sm:text-sm bg-white text-secondary-300"
               >
-                <option value="">Register us</option>
+                <option value="">Register as</option>
                 <option value="users">Users</option>
                 <option value="firms">Firms</option>
                 <option value="organization">Organization</option>
@@ -130,14 +172,14 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="mb-4">
-                <InPuts
+                {/* <InPuts
                   placeholder="Law Domain"
                   name="lawDomain"
                   value={form.lawDomain}
                   onChange={handleChange}
                   className="text-center"
                   error={errors.lawDomain}
-                />
+                /> */}
               </div>
               <div className="mb-4">
                 <InPuts
@@ -198,11 +240,16 @@ export default function RegisterPage() {
             />
           </div>
           <div className="flex justify-center">
-            <Button type="submit" className="w-1/3 bg-primary-800 text-white py-2 rounded-md mb-2">
-              Register
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-1/3 bg-primary-800 text-white py-2 rounded-md mb-2"
+            >
+              {loading ? 'Registering...' : 'Register'}
             </Button>
           </div>
         </form>
+        <ToastContainer />
         <div className="text-center mt-6 w-full max-w-xs mx-auto">
           <p className="text-sm text-secondary-300">
             Already registered?{' '}
