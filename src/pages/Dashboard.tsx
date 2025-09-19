@@ -27,7 +27,7 @@ export default function Dashboard() {
               className="w-full"
             />
             <StatsCard
-              title="Expenses"
+              title="Content Articles"
               value={8000}
               change={-5}
               changeLabel="Since last month"

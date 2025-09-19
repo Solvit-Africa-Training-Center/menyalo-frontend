@@ -127,6 +127,13 @@ export default function CommunityPage() {
     setNewPost('');
   };
 
+  //upvoting
+  const handleUpvote = (postId: string) => {
+    setPosts((prev) =>
+      prev.map((post) => (post.id === postId ? { ...post, upvotes: post.upvotes + 1 } : post)),
+    );
+  };
+
   // Add new comment to a post
   const handleAddComment = (postId: string, comment: string) => {
     if (!comment.trim()) return;
@@ -194,6 +201,7 @@ export default function CommunityPage() {
                       setOpenComments(openComments === post.id ? null : post.id)
                     }
                     onAddComment={(comment) => handleAddComment(post.id, comment)}
+                    onUpvote={() => handleUpvote(post.id)}
                   />
                   {idx !== filteredPosts.length - 1 && (
                     <hr className="my-4 border-t border-primary-100" />

@@ -1,13 +1,50 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logodark from '../assets/Logodark.png';
 import profile from '../assets/profile.jpg';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useLogoutMutation } from '../app/api/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function GeneralNav() {
   const [language, setLanguage] = useState('EN');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
+  const avatarMenuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const [logout] = useLogoutMutation();
+
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (avatarMenuRef.current && !avatarMenuRef.current.contains(event.target as Node)) {
+        setIsAvatarMenuOpen(false);
+      }
+    }
+    if (isAvatarMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAvatarMenuOpen]);
+
+    const handleLogout = async () => {
+      try {
+        await logout().unwrap();
+        localStorage.removeItem('token');
+        toast.success('Logged out successfully!', { position: 'top-right' });
+        setTimeout(() => {
+          navigate('/');
+        }   , 1500);
+      } catch (err) {
+        // Optionally show error toast or message
+        toast.error('Logout failed. Please try again.', { position: 'top-right' });
+      }
+    };
+
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -25,7 +62,7 @@ export default function GeneralNav() {
   return (
     <nav className="fixed top-0 left-0 w-full bg-white text-primary-500 border-b-2 border-primary-800/20 flex items-center justify-between px-4 md:px-10 shadow z-50">
       <div className="w-12 h-12 md:w-15 md:h-15 p-2">
-        <Link to="/">
+        <Link to="/feed">
           <img src={Logodark} alt="Logo" />
         </Link>
       </div>
@@ -111,11 +148,37 @@ export default function GeneralNav() {
           )}
         </div>
 
-        <Link to="/user">
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 flex items-center justify-center">
+        <div className="relative" ref={avatarMenuRef}>
+          <button
+            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 flex items-center justify-center focus:outline-none"
+            onClick={() => setIsAvatarMenuOpen((prev) => !prev)}
+            aria-label="User menu"
+          >
             <img src={profile} alt="Avatar" className="w-full h-full rounded-full object-cover" />
-          </div>
-        </Link>
+          </button>
+          {isAvatarMenuOpen && (
+            <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg z-50 border border-gray-200">
+              <button
+                className="w-full text-left px-4 py-2 hover:bg-primary-100 text-primary-800"
+                onClick={() => {
+                  setIsAvatarMenuOpen(false);
+                  navigate('/user');
+                }}
+              >
+                Profile
+              </button>
+              <button
+                className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 border-t border-gray-100"
+                onClick={() => {
+                  setIsAvatarMenuOpen(false);
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="md:hidden">
