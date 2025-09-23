@@ -41,13 +41,13 @@ export default function AISideBar() {
           </button>
         </div>
         {/* Logo */}
-        <div className="mb-8 mt-2 md:mt-0">
+        {/* <div className="mb-8 mt-2 md:mt-0">
           <Link to="/">
             <img src={menyaloLogo} alt="Menyalo Logo" className="w-16 mx-auto" />
           </Link>
-        </div>
+        </div> */}
         {/* Menu */}
-        <nav className="flex flex-col gap-10 w-full px-8">
+        <nav className="flex flex-col gap-10 w-full px-8 pt-16">
           <button className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1">
             <FaRegEdit className="text-[color:var(--color-primary-800)]  text-xl" />
             New chat

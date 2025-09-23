@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 const routeToItem: Record<string, string> = {
   '/dashboard': 'dashboard',
   '/users': 'users',
+  '/verification': 'notification',
   // Add more routes if needed
 };
 
@@ -25,10 +26,10 @@ const Sidebar: React.FC = () => {
 
   const navigationItems: SidebarItem[] = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'notification', label: 'Notification', icon: Bell },
+    { id: 'notification', label: 'Verification', icon: Bell },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'content', label: 'Content', icon: FileText },
-    { id: 'search', label: 'Search', icon: Search },
+    { id: 'search', label: 'Law', icon: Search },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
    const [logout] = useLogoutMutation();
@@ -37,6 +38,7 @@ const Sidebar: React.FC = () => {
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
     if (itemId === 'users') navigate('/users');
+    if (itemId === 'verification') navigate('/verification');
     if (itemId === 'dashboard') navigate('/dashboard');
     setOpen(false);
   };

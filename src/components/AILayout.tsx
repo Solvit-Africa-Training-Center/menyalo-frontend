@@ -1,5 +1,7 @@
 import AISideBar from './AISideBar';
-import AINavBar from './AINavBar';
+import GeneralNav from './GeneralNav';
+// import AINavBar from './AINavBar';
+
 
 export default function AILayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +11,7 @@ export default function AILayout({ children }: { children: React.ReactNode }) {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
-        <AINavBar />
+        <GeneralNav />
         {/* Page Content */}
         <main className="flex-1 p-6 bg-[color:var(--color-style-500)] overflow-y-auto">
           {children}
