@@ -1,13 +1,14 @@
 export type CommunityCommentType = {
+  postId: string;
   id: string;
   author: {
     name: string;
     avatarUrl: string;
     isVerified?: boolean;
-    tag?: string; // e.g. "Users"
+    tag?: string; // e.g. "User"
   };
   content: string;
-  createdAt: string; // e.g. "2d ago"
+  createdAt: string;
   upvotes: number;
   replies?: CommunityCommentType[];
 };
@@ -18,12 +19,12 @@ export type CommunityPostType = {
     name: string;
     avatarUrl: string;
     isVerified: boolean;
+    tag: string; // e.g. "Citizen", "Firm"
   };
-  tag: string; // e.g. "Firms"
   createdAt: string;
+  title?: string;
   content: string;
   upvotes: number;
-  comments: number;
   hasUpvoted?: boolean;
-  commentList?: CommunityCommentType[];
+  commentList: CommunityCommentType[];
 };
