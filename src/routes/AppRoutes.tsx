@@ -16,7 +16,8 @@ import Dashboard from '../pages/Dashboard';
 import LandingPage from '../pages/LandingPage';
 import UsersPage from '../pages/UsersPage';
 import ProtectedRoute from '../components/ProtectedRoute';
-
+import ContentPage from '../pages/ContentPage';
+import DashLawPage from '../pages/DashLawPage';
 
 export default function AppRoutes() {
   return (
@@ -50,13 +51,29 @@ export default function AppRoutes() {
       <Route path="/ai" element={<AIPage />} />
       <Route path="/law" element={<LawPage />} />
       <Route path="/users" element={<UsersPage />} />
-      <Route 
-        path="/verification" 
+      <Route
+        path="/verification"
         element={
           <ProtectedRoute allowedRoles={['law-firm']}>
             <Verification />
           </ProtectedRoute>
-        } 
+        }
+      />
+      <Route
+        path="/content"
+        element={
+          <ProtectedRoute allowedRoles={['law-firm']}>
+            <ContentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashlaw"
+        element={
+          <ProtectedRoute allowedRoles={['law-firm']}>
+            <DashLawPage />
+          </ProtectedRoute>
+        }
       />
     </Routes>
   );

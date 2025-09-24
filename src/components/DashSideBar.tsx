@@ -8,8 +8,9 @@ import { toast } from 'react-toastify';
 const routeToItem: Record<string, string> = {
   '/dashboard': 'dashboard',
   '/users': 'users',
-  '/verification': 'notification',
-  // Add more routes if needed
+  '/verification': 'verification',
+  '/content': 'content',
+  '/dashlaw': 'dashlaw',
 };
 
 const Sidebar: React.FC = () => {
@@ -26,22 +27,24 @@ const Sidebar: React.FC = () => {
 
   const navigationItems: SidebarItem[] = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'notification', label: 'Verification', icon: Bell },
+    { id: 'verification', label: 'Verification', icon: Bell },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'content', label: 'Content', icon: FileText },
-    { id: 'search', label: 'Law', icon: Search },
+    { id: 'dashlaw', label: 'Law', icon: Search },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
-   const [logout] = useLogoutMutation();
-    
+  const [logout] = useLogoutMutation();
 
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
     if (itemId === 'users') navigate('/users');
     if (itemId === 'verification') navigate('/verification');
+    if (itemId === 'content') navigate('/content');
+    if (itemId === 'dashlaw') navigate('/dashlaw');
     if (itemId === 'dashboard') navigate('/dashboard');
     setOpen(false);
   };
+
   const handleLogout = async () => {
     try {
       await logout().unwrap();
@@ -51,30 +54,30 @@ const Sidebar: React.FC = () => {
         navigate('/');
       }, 1500);
     } catch (err) {
-      // Optionally show error toast or message
       toast.error('Logout failed. Please try again.', { position: 'top-right' });
     }
   };
 
-
   return (
     <>
+      {/* Mobile menu button */}
       <button
-        className="md:hidden fixed top-12 left-4 z-50 bg-white rounded-full p-2 shadow"
+        className="md:hidden fixed top-4 left-4 z-50 bg-white rounded-full p-2 shadow"
         onClick={() => setOpen(true)}
         aria-label="Open sidebar"
       >
         <Menu size={24} className="text-primary-800" />
       </button>
+      {/* Sidebar */}
       <div
         className={`
-          bg-white border-r border-gray-200 flex flex-col pt-28 pl-8 pr-8 h-screen z-40
-          md:static md:w-64 md:translate-x-0
-          fixed top-0 left-0 w-4/5 max-w-xs shadow-lg transition-transform duration-300
+          fixed top-0 left-0 h-screen bg-white border-r border-gray-200 flex flex-col pt-28 pl-8 pr-8 shadow-lg z-40 w-4/5 max-w-xs
+          overflow-y-auto transition-transform duration-300
           ${open ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0
+          md:translate-x-0 md:w-64 md:static
         `}
       >
+        {/* Close button for mobile */}
         <div className="w-full flex md:hidden justify-end pr-4">
           <button
             className="text-2xl text-gray-500 mt-2"
@@ -112,9 +115,7 @@ const Sidebar: React.FC = () => {
         </nav>
         <div className="px-4 py-4 border-t border-gray-200">
           <button
-            onClick={() => {
-              handleLogout();
-            }}
+            onClick={handleLogout}
             className="w-full flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-red-50 hover:text-red-700 transition-colors duration-200"
           >
             <LogOut size={20} className="mr-3 text-gray-500 hover:text-red-700" />
@@ -122,6 +123,7 @@ const Sidebar: React.FC = () => {
           </button>
         </div>
       </div>
+      {/* Overlay for mobile */}
       {open && (
         <div
           className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden"

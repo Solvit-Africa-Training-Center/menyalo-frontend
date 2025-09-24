@@ -1,15 +1,10 @@
-import Verification from "../components/Verification";
-import GeneralNav from "../components/GeneralNav";
-
-
+import Verification from '../components/Verification';
+import DashLayout from '../components/DashLayout';
 
 export default function VerificationPage() {
   return (
-    <div>
-      <GeneralNav/>
-     
-        <Verification />
-     
-    </div>
+    <DashLayout>
+      <Verification />
+    </DashLayout>
   );
 }

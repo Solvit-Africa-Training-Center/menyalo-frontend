@@ -42,7 +42,7 @@ const users: UserstableType[] = [
 
 export default function UsersTable() {
   return (
-    <div className="overflow-x-auto bg-white rounded-xl shadow border border-custom-200 w-full">
+    <div className="overflow-x-auto bg-white rounded-xl shadow border border-custom-200 w-full flex min-h-screen pt-24 ">
       <table className="min-w-full text-left">
         <thead>
           <tr className="text-gray-600 text-sm font-semibold border-b border-custom-200">

@@ -9,8 +9,8 @@ export default function Dashboard() {
       <GeneralNav />
       <div className="flex">
         <DashSiderBar />
-        <div className="flex-1 p-6 pt-28 bg-style-500 flex flex-col items-center justify-start">
-          <h1 className="text-3xl font-semibold text-gray-500 mb-4 self-start pl-24">
+        <div className="flex-1 p-6 pt-28 pl-32 bg-style-500 flex flex-col items-center justify-start">
+          <h1 className="text-3xl font-semibold text-gray-500 mb-4 self-start pl-48">
             Welcome Back
           </h1>
 

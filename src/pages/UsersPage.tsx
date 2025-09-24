@@ -11,7 +11,7 @@ export default function UsersPage() {
       <GeneralNav />
       <div className="flex flex-col md:flex-row">
         <DashSiderBar />
-        <div className="flex-1 p-4 sm:p-6 pt-24 sm:pt-28 flex flex-col items-center justify-start">
+        <div className="flex-1 p-4  sm:p-6 pt-24 sm:pt-28 flex flex-col items-center justify-start">
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-500 mb-4 self-start pl-0 sm:pl-24">
             Welcome Back
           </h1>
