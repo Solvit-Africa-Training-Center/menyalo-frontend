@@ -7,8 +7,32 @@
 // import { FaInstagram } from 'react-icons/fa';
 import Logo from '../assets/Logo.png';
 import Button from './Button';
+import InPuts from './InPuts';
+import { useSubscribeMutation } from '../app/api/subscribe';
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export default function GeneralFoot() {
+  const [subscribe] = useSubscribeMutation();
+  const [email, setEmail] = useState('');
+
+
+   const handleSubscribe: React.FormEventHandler<HTMLFormElement> = async (e) => {
+     e.preventDefault();
+     try {
+       await subscribe({ email });
+       // Handle successful subscription (e.g., show a success message)
+        toast.success('Subscribed successfully!');
+     } catch (error) {
+       // Handle error (e.g., show an error message)
+       console.error('Subscription error:', error);
+        toast.error('Subscription failed. Please try again.');
+     }
+   };
+
   return (
     <div className="bg-primary-900 text-white">
       <div className="bg-primary-900 text-white flex flex-col sm:flex-row justify-between px-8 sm:px-20 py-10 gap-15">
@@ -22,22 +46,29 @@ export default function GeneralFoot() {
             accessible to all, in Kinyarwanda, English and French.
           </p>
           <div className="flex flex-col sm:flex-row justify-start gap-4 mt-3">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-white text-primary-800 px-24 text-left w-full sm:w-auto"
-              type="button"
+            <form
+              className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto"
+              onSubmit={handleSubscribe}
             >
-              Your Email
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-primary-900 text-white px-4 text-left w-full sm:w-auto"
-              type="button"
-            >
-              Subscribe
-            </Button>
+              <InPuts
+                type="email"
+                placeholder="Your email address"
+                name="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                className="bg-primary-50 border border-white placeholder-primary-600 text-primary-900 focus:ring-0 focus:border-white"
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-primary-900 text-white px-4 text-left w-full sm:w-auto"
+                type="submit"
+              >
+                Subscribe
+              </Button>
+            </form>
           </div>
         </div>
 
@@ -90,7 +121,9 @@ export default function GeneralFoot() {
       <hr className="border-gray-700 border-t-2 mx-auto w-full pb-2" />
       <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left px-5 py-3">
         <div>
-          <p className="text-gray-300 pb-2 font-light">© 2025 Know Your Laws. All rights reserved.</p>
+          <p className="text-gray-300 pb-2 font-light">
+            © 2025 Know Your Laws. All rights reserved.
+          </p>
         </div>
         <div className="font-light flex gap-3">
           <a href="#" className="hover:underline">
