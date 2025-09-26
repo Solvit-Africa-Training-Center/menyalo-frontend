@@ -68,25 +68,28 @@ const Sidebar: React.FC = () => {
       >
         <Menu size={24} className="text-primary-800" />
       </button>
-      {/* Sidebar */}
+
+      {/* Sidebar - Always Fixed */}
       <div
         className={`
-          fixed top-0 left-0 h-screen bg-white border-r border-gray-200 flex flex-col pt-28 pl-8 pr-8 shadow-lg z-40 w-4/5 max-w-xs
+          fixed top-0 left-0 h-screen bg-white border-r border-gray-200 flex flex-col pt-20 shadow-lg z-40
           overflow-y-auto transition-transform duration-300
           ${open ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0 md:w-64 md:static
+          md:translate-x-0 md:w-64
+          w-4/5 max-w-xs
         `}
       >
         {/* Close button for mobile */}
-        <div className="w-full flex md:hidden justify-end pr-4">
+        <div className="w-full flex md:hidden justify-end px-4 pt-4">
           <button
-            className="text-2xl text-gray-500 mt-2"
+            className="text-2xl text-gray-500"
             onClick={() => setOpen(false)}
             aria-label="Close sidebar"
           >
             &times;
           </button>
         </div>
+
         <nav className="flex-1 px-4 py-6">
           <ul className="space-y-2">
             {navigationItems.map((item) => {
@@ -113,6 +116,7 @@ const Sidebar: React.FC = () => {
             })}
           </ul>
         </nav>
+
         <div className="px-4 py-4 border-t border-gray-200">
           <button
             onClick={handleLogout}
@@ -123,6 +127,7 @@ const Sidebar: React.FC = () => {
           </button>
         </div>
       </div>
+
       {/* Overlay for mobile */}
       {open && (
         <div
