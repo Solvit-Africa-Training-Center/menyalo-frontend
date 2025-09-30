@@ -50,7 +50,11 @@ export default function AppRoutes() {
       <Route path="/community" element={<CommunityPage />} />
       <Route path="/ai" element={<AIPage />} />
       <Route path="/law" element={<LawPage />} />
-      <Route path="/users" element={<UsersPage />} />
+      <Route path="/users" element={
+        <ProtectedRoute allowedRoles={['law-firm']}>
+          <UsersPage />
+        </ProtectedRoute>
+      } />
       <Route
         path="/verification"
         element={

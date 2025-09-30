@@ -1,35 +1,5 @@
 import { apiSlice } from '../apiEntry';
 
-// Helper function to get current user data
-const getCurrentUser = () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join(''),
-      );
-      return JSON.parse(jsonPayload);
-    }
-
-    const citizen = localStorage.getItem('citizen');
-    if (citizen) {
-      return JSON.parse(citizen);
-    }
-
-    return null;
-  } catch (error) {
-    console.error('Error getting current user:', error);
-    return null;
-  }
-};
-
 export const replycommentApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addReply: builder.mutation({
@@ -42,16 +12,13 @@ export const replycommentApi = apiSlice.injectEndpoints({
         commentId: string;
         content: string;
       }) => {
-        const user = getCurrentUser();
-        console.log('Add reply - User:', user);
+        console.log('Add reply API call:', { postId, commentId, content });
 
         return {
           url: `/posts/${postId}/comments/${commentId}/replies`,
           method: 'POST',
           body: {
-            content,
-            authorId: user?.id || user?.userId,
-            userId: user?.id || user?.userId,
+            content, // Only send content - backend gets author from auth token
           },
         };
       },
@@ -89,20 +56,12 @@ export const replycommentApi = apiSlice.injectEndpoints({
 
     deleteReply: builder.mutation({
       query: ({ postId, commentId, id }: { postId: string; commentId: string; id: string }) => {
-        const user = getCurrentUser();
-        console.log('Delete reply API call:', { postId, commentId, id, user });
-
-        // Try different URL patterns based on common API structures
-        const url = `/posts/${postId}/comments/${commentId}/replies/${id}`;
-        console.log('Delete reply URL:', url);
+        console.log('Delete reply API call:', { postId, commentId, id });
 
         return {
-          url,
+          url: `/posts/${postId}/comments/${commentId}/replies/${id}`,
           method: 'DELETE',
-          body: {
-            userId: user?.id || user?.userId,
-            authorId: user?.id || user?.userId,
-          },
+          // Don't send any body - backend determines authorization from auth token
         };
       },
       invalidatesTags: (result, error, { postId, commentId, id }) => [
@@ -125,14 +84,11 @@ export const replycommentApi = apiSlice.injectEndpoints({
         id: string;
         content: string;
       }) => {
-        const user = getCurrentUser();
         return {
           url: `/posts/${postId}/comments/${commentId}/replies/${id}`,
           method: 'PUT',
           body: {
-            content,
-            userId: user?.id || user?.userId,
-            authorId: user?.id || user?.userId,
+            content, // Only send content - backend gets author from auth token
           },
         };
       },

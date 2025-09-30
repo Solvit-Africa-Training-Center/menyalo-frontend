@@ -1,13 +1,27 @@
 import AISideBar from './AISideBar';
 import GeneralNav from './GeneralNav';
-// import AINavBar from './AINavBar';
 
+interface AILayoutProps {
+  children: React.ReactNode;
+  currentConversationId?: string;
+  onSelectConversation?: (conversationId: string | null) => void;
+  onNewConversation?: () => void;
+}
 
-export default function AILayout({ children }: { children: React.ReactNode }) {
+export default function AILayout({
+  children,
+  currentConversationId,
+  onSelectConversation,
+  onNewConversation,
+}: AILayoutProps) {
   return (
     <div className="flex min-h-screen bg-[color:var(--color-style-500)] font-sans">
       {/* Sidebar */}
-      <AISideBar />
+      <AISideBar
+        currentConversationId={currentConversationId}
+        onSelectConversation={onSelectConversation || (() => {})}
+        onNewConversation={onNewConversation || (() => {})}
+      />
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
