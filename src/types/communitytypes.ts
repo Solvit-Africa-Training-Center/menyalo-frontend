@@ -3,6 +3,7 @@ export type CommunityCommentType = {
   id: string;
   author: {
     name: string;
+    username?: string;
     avatarUrl: string;
     isVerified?: boolean;
     tag?: string; // e.g. "User"

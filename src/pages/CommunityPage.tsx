@@ -5,7 +5,7 @@ import CommunityCard from '../components/CommunityCard';
 import InPuts from '../components/InPuts';
 import type { CommunityPostType } from '../types/communitytypes';
 import onfeed from '../assets/on-feed.png';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaCircleNotch } from 'react-icons/fa';
 import {
@@ -13,7 +13,43 @@ import {
   useCreatePostMutation,
   useUpdatePostMutation,
 } from '../app/api/post/index';
-import { useGetCommentsQuery, useAddCommentMutation } from '../app/api/comments';
+import {  useAddCommentMutation } from '../app/api/comments';
+
+import { useUpvotePostMutation} from '../app/api/upvote';
+
+
+const getCurrentUserId = () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Decode JWT token to get user info
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join(''),
+      );
+      const decoded = JSON.parse(jsonPayload);
+      return decoded.id || decoded.userId || decoded.sub;
+    }
+
+    // Fallback to localStorage citizen data
+    const citizen = localStorage.getItem('citizen');
+    if (citizen) {
+      const parsed = JSON.parse(citizen);
+      return parsed.id || parsed.userId;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error getting current user ID:', error);
+    return null;
+  }
+};
 
 
 export default function CommunityPage() {
@@ -29,33 +65,42 @@ const userName = user.name || user.username || 'citizen';
   const [createPost] = useCreatePostMutation();
   const [updatePost] = useUpdatePostMutation();
   const [addComment] = useAddCommentMutation();
+  const [upvotePost] = useUpvotePostMutation();
 
   // Ensure posts is always an array
  const posts: CommunityPostType[] = Array.isArray(data?.data)
-   ? data.data.map((post: any) => ({
-       ...post,
-       author: {
-         name: post.author?.name || post.author?.username || 'Unknown',
-         avatarUrl: post.image_url || '',
-         isVerified: false,
-         tag: 'citizen',
-       },
-       commentList: Array.isArray(post.comments)
-         ? post.comments.map((comment: any) => ({
-             id: comment.id,
-             author: {
-               name: comment.author?.name || comment.author?.username || 'Unknown',
-               avatarUrl: '', // or comment.author.avatarUrl if available
-               isVerified: false,
-               tag: 'citizen',
-             },
-             content: comment.content,
-             createdAt: comment.createdAt || '', // fallback if missing
-             upvotes: comment.upvotes || 0, // fallback if missing
-             replies: [], // or map replies if available
-           }))
-         : [],
-     }))
+   ? data.data.map((post: any) => {
+       return {
+          id: post.id,
+          title: post.title || '',
+          content: post.content || '',
+          createdAt: post.createdAt || new Date().toISOString(),
+          // Convert upvotes array to count
+          upvotes: Array.isArray(post.upvotes) ? post.upvotes.length : 0,
+          author: {
+            name: post.author?.name || post.author?.username || 'Unknown',
+            avatarUrl: post.image_url || post.author?.avatarUrl || '',
+            isVerified: post.author?.isVerified || false,
+            tag: post.author?.role || post.author?.userType || 'citizen',
+          },
+          commentList: Array.isArray(post.comments)
+            ? post.comments.map((comment: any) => ({
+                id: comment.id,
+                postId: post.id, // Add postId for comments
+                author: {
+                  name: comment.author?.name || comment.author?.username || 'Unknown',
+                  avatarUrl: comment.author?.avatarUrl || '',
+                  isVerified: comment.author?.isVerified || false,
+                  tag: comment.author?.role || comment.author?.userType || 'citizen',
+                },
+                content: comment.content || '',
+                createdAt: comment.createdAt || new Date().toISOString(),
+                upvotes: Array.isArray(comment.upvotes) ? comment.upvotes.length : (comment.upvotes || 0),
+                replies: comment.replies || [],
+              }))
+            : [],
+        };
+      })
    : [];
   // Filter posts by search
   const filteredPosts = posts.filter(
@@ -64,10 +109,35 @@ const userName = user.name || user.username || 'citizen';
       post.author.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const handleupdatePost = async (postId: string, updatedData: Partial<CommunityPostType>) => {
-    await updatePost({ id: postId, data: updatedData });
-    refetch();
-  }
+  const handleupvote = async (postId: string) => {
+    try {
+      const userId = getCurrentUserId();
+
+      if (!userId) {
+        toast.error('Please log in to upvote posts');
+        return;
+      }
+
+      await upvotePost({
+        postID: postId, // Note: your API expects 'postID' not 'postId'
+        userId: userId,
+      }).unwrap();
+
+      toast.success('Post upvoted successfully!');
+      refetch();
+    } catch (err: any) {
+      console.error('Error upvoting post:', err);
+
+      // Handle specific error messages
+      if (err?.data?.message) {
+        toast.error(err.data.message);
+      } else if (err?.message) {
+        toast.error(err.message);
+      } else {
+        toast.error('Failed to upvote post. Please try again.');
+      }
+    }
+  };
 
 
   // Add new post
@@ -88,16 +158,6 @@ const handlePost = async () => {
   }
 };
 
-  // Upvoting
-  const handleUpvote = async (postId: string) => {
-    const post = posts.find((p) => p.id === postId);
-    if (!post) return;
-    await updatePost({
-      id: postId,
-      data: { upvotes: post.upvotes + 1 },
-    });
-    refetch();
-  };
 
   // Add new comment to a post
   const handleAddComment = async (postId: string, comment: string) => {
@@ -172,7 +232,8 @@ const handlePost = async () => {
                         setOpenComments(openComments === post.id ? null : post.id)
                       }
                       onAddComment={(comment) => handleAddComment(post.id, comment)}
-                      onUpvote={() => handleUpvote(post.id)}
+                      onUpvote={() => handleupvote(post.id)}
+                      onPostUpdated={refetch} // Add this prop
                     />
                     {idx !== filteredPosts.length - 1 && (
                       <hr className="my-4 border-t border-primary-100" />

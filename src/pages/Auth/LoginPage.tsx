@@ -44,7 +44,7 @@ export default function LoginPage() {
           else navigate('/feed');
         }, 1500);
       } catch (err) {
-          console.error('Google login error:', err);
+        console.error('Google login error:', err);
 
         toast.error('Google login failed.', { position: 'top-right' });
         setLoading(false);
@@ -55,13 +55,12 @@ export default function LoginPage() {
     },
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: '' });
+  };
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setForm({ ...form, [e.target.name]: e.target.value });
-     setErrors({ ...errors, [e.target.name]: '' });
-   };
-
-
+  // In your handleSubmit function, after successful login:
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -73,23 +72,45 @@ export default function LoginPage() {
       try {
         const res = await login(form).unwrap();
         localStorage.setItem('token', res.data.token);
-        console.log('token', res.data.token);
-        console.log('role', res.data.role);
+
+        // Store user data for community access
         const decoded: any = jwtDecode(res.data.token);
         const role = decoded.role;
-        console.log('Decoded role:', role);
-       toast.success('Login successful!', { position: 'top-right' });
-       setTimeout(() => {
-         if (role === 'user') {
-           navigate('/feed');
-         } else if (role === 'law-firm') {
-           navigate('/dashboard');
-         } else if (role === 'organization') {
-           navigate('/organization-dashboard');
-         } else {
-           navigate('/feed');
-         }
-       }, 1500);
+
+        // Store user data in localStorage based on role
+        const userData = {
+          name: decoded.name || decoded.username,
+          username: decoded.username,
+          email: decoded.email,
+          avatarUrl: decoded.avatarUrl || '',
+          role: role,
+        };
+
+        // Store in role-specific key for backward compatibility
+        if (role === 'user') {
+          localStorage.setItem('citizen', JSON.stringify(userData));
+        } else if (role === 'law-firm') {
+          localStorage.setItem('law-firm', JSON.stringify(userData));
+        } else if (role === 'organization') {
+          localStorage.setItem('organization', JSON.stringify(userData));
+        }
+
+        console.log('token', res.data.token);
+        console.log('role', role);
+        console.log('userData', userData);
+
+        toast.success('Login successful!', { position: 'top-right' });
+        setTimeout(() => {
+          if (role === 'user') {
+            navigate('/feed');
+          } else if (role === 'law-firm') {
+            navigate('/dashboard');
+          } else if (role === 'organization') {
+            navigate('/organization-dashboard');
+          } else {
+            navigate('/feed');
+          }
+        }, 1500);
       } catch (err: any) {
         setErrors({ password: 'Invalid email or password' });
         toast.error(err?.data?.message || 'Login failed. Please check your credentials.', {
@@ -177,7 +198,6 @@ export default function LoginPage() {
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
-          
         </form>
         <ToastContainer />
         <div className="flex items-center w-full max-w-xs mx-auto my-4">
@@ -187,7 +207,9 @@ export default function LoginPage() {
         </div>
         <div className="w-full max-w-xs mx-auto">
           <Button
-            onClick={() => { handleGoogleLogin(); }}
+            onClick={() => {
+              handleGoogleLogin();
+            }}
             className="w-full !text-secondary-300 py-2 rounded-md border border-primary-800 bg-white"
             variant="outline"
           >
