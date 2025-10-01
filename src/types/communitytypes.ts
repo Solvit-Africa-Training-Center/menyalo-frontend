@@ -25,6 +25,7 @@ export type CommunityPostType = {
   createdAt: string;
   title?: string;
   content: string;
+  imageUrl?: string;
   upvotes: number;
   hasUpvoted?: boolean;
   commentList: CommunityCommentType[];

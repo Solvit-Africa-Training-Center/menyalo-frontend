@@ -12,6 +12,7 @@ interface InPutsProps {
   className?: string;
   textarea?: boolean;
   rows?: number;
+  disabled?: boolean;
 }
 
 const InPuts: React.FC<InPutsProps> = ({

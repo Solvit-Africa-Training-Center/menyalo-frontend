@@ -11,7 +11,6 @@ import states from '../assets/states-woman.png';
 import { VscVerifiedFilled } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 
-
 const lawCategories = [
   {
     icon: <FaBook />,
@@ -79,7 +78,6 @@ const categories = lawCategories.map((cat) => cat.name);
 export default function Feed() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const navigate = useNavigate();
-
 
   return (
     <Layout>
