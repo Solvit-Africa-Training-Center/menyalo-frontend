@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Search, Eye } from 'lucide-react';
-import Sidebar from '../components/DashSideBar';
+// Sidebar not used here; remove unused import
 
 const Verification = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState('pending');
+  // const [activeTab, setActiveTab] = useState('pending');
 
   const requests = [
     {

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { type AxiosResponse, type AxiosError } from 'axios';
 import { API_BASE_URL } from '../constants/api';
 
 // Create axios instance

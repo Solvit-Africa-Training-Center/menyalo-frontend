@@ -1,4 +1,4 @@
-import { FaCheckCircle, FaStar, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaStar, FaMapMarkerAlt } from 'react-icons/fa';
 import type { FirmType } from '../types/firmtypes';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';

@@ -22,11 +22,15 @@ export const replycommentApi = apiSlice.injectEndpoints({
           },
         };
       },
-      invalidatesTags: (result, error, { postId, commentId }) => [
-        { type: 'Comments', id: postId },
-        { type: 'Comments', id: commentId },
-        { type: 'Comments', id: 'LIST' },
-      ],
+      invalidatesTags: (result, error, { postId, commentId }) => {
+        void result;
+        void error;
+        return [
+          { type: 'Comments', id: postId },
+          { type: 'Comments', id: commentId },
+          { type: 'Comments', id: 'LIST' },
+        ];
+      },
     }),
 
     getreply: builder.query({
@@ -42,7 +46,8 @@ export const replycommentApi = apiSlice.injectEndpoints({
         return response?.data || [];
       },
       providesTags: (result, error, { postId, commentId }) => {
-        const replies = result || [];
+        void error;
+        const replies = (result as any[]) || [];
         return [
           { type: 'Comments', id: postId },
           { type: 'Comments', id: commentId },
@@ -64,12 +69,16 @@ export const replycommentApi = apiSlice.injectEndpoints({
           // Don't send any body - backend determines authorization from auth token
         };
       },
-      invalidatesTags: (result, error, { postId, commentId, id }) => [
-        { type: 'Comments', id: postId },
-        { type: 'Comments', id: commentId },
-        { type: 'Comments', id },
-        { type: 'Comments', id: 'LIST' },
-      ],
+      invalidatesTags: (result, error, { postId, commentId, id }) => {
+        void result;
+        void error;
+        return [
+          { type: 'Comments', id: postId },
+          { type: 'Comments', id: commentId },
+          { type: 'Comments', id },
+          { type: 'Comments', id: 'LIST' },
+        ];
+      },
     }),
 
     updateReply: builder.mutation({
@@ -92,12 +101,16 @@ export const replycommentApi = apiSlice.injectEndpoints({
           },
         };
       },
-      invalidatesTags: (result, error, { postId, commentId, id }) => [
-        { type: 'Comments', id: postId },
-        { type: 'Comments', id: commentId },
-        { type: 'Comments', id },
-        { type: 'Comments', id: 'LIST' },
-      ],
+      invalidatesTags: (result, error, { postId, commentId, id }) => {
+        void result;
+        void error;
+        return [
+          { type: 'Comments', id: postId },
+          { type: 'Comments', id: commentId },
+          { type: 'Comments', id },
+          { type: 'Comments', id: 'LIST' },
+        ];
+      },
     }),
   }),
 });

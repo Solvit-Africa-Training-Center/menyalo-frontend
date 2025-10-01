@@ -8,11 +8,7 @@ import onfeed from '../assets/on-feed.png';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaCircleNotch, FaImage, FaTimes, FaSmile } from 'react-icons/fa';
-import {
-  useGetPostsQuery,
-  useCreatePostMutation,
-  useUpdatePostMutation,
-} from '../app/api/post/index';
+import { useGetPostsQuery, useCreatePostMutation } from '../app/api/post/index';
 import { useAddCommentMutation } from '../app/api/comments';
 import { useUpvotePostMutation } from '../app/api/upvote';
 import { useGetRolesQuery } from '../app/api/roles';
@@ -80,10 +76,9 @@ export default function CommunityPage() {
   // API hooks
   const { data, isLoading, refetch } = useGetPostsQuery();
   const [createPost] = useCreatePostMutation();
-  const [updatePost] = useUpdatePostMutation();
   const [addComment] = useAddCommentMutation();
   const [upvotePost] = useUpvotePostMutation();
-  const { data: rolesData, isLoading: rolesLoading, error: rolesError } = useGetRolesQuery();
+  const { data: rolesData } = useGetRolesQuery();
 
   // Debug logging
   console.log('Posts Data:', data);
@@ -206,41 +201,41 @@ export default function CommunityPage() {
   // Ensure posts is always an array with enhanced role detection
   const posts: CommunityPostType[] = Array.isArray(data?.data)
     ? data.data.map((post: any) => {
-        console.log('Processing post:', post.id, 'Author data:', post.author);
+      console.log('Processing post:', post.id, 'Author data:', post.author);
 
-        return {
-          id: post.id,
-          title: post.title || '',
-          content: post.content || '',
-          imageUrl: post.imageUrl || post.image_url || '',
-          createdAt: post.createdAt || new Date().toISOString(),
-          upvotes: Array.isArray(post.upvotes) ? post.upvotes.length : 0,
-          author: {
-            name: post.author?.name || post.author?.username || 'Unknown',
-            avatarUrl: post.image_url || post.author?.avatarUrl || '',
-            isVerified: post.author?.isVerified || false,
-            tag: getUserRole(post.author, post.authorId), // Enhanced role detection
-          },
-          commentList: Array.isArray(post.comments)
-            ? post.comments.map((comment: any) => ({
-                id: comment.id,
-                postId: post.id,
-                author: {
-                  name: comment.author?.name || comment.author?.username || 'Unknown',
-                  avatarUrl: comment.author?.avatarUrl || '',
-                  isVerified: comment.author?.isVerified || false,
-                  tag: getUserRole(comment.author, comment.authorId), // Enhanced role detection
-                },
-                content: comment.content || '',
-                createdAt: comment.createdAt || new Date().toISOString(),
-                upvotes: Array.isArray(comment.upvotes)
-                  ? comment.upvotes.length
-                  : comment.upvotes || 0,
-                replies: comment.replies || [],
-              }))
-            : [],
-        };
-      })
+      return {
+        id: post.id,
+        title: post.title || '',
+        content: post.content || '',
+        imageUrl: post.imageUrl || post.image_url || '',
+        createdAt: post.createdAt || new Date().toISOString(),
+        upvotes: Array.isArray(post.upvotes) ? post.upvotes.length : 0,
+        author: {
+          name: post.author?.name || post.author?.username || 'Unknown',
+          avatarUrl: post.image_url || post.author?.avatarUrl || '',
+          isVerified: post.author?.isVerified || false,
+          tag: getUserRole(post.author, post.authorId), // Enhanced role detection
+        },
+        commentList: Array.isArray(post.comments)
+          ? post.comments.map((comment: any) => ({
+            id: comment.id,
+            postId: post.id,
+            author: {
+              name: comment.author?.name || comment.author?.username || 'Unknown',
+              avatarUrl: comment.author?.avatarUrl || '',
+              isVerified: comment.author?.isVerified || false,
+              tag: getUserRole(comment.author, comment.authorId), // Enhanced role detection
+            },
+            content: comment.content || '',
+            createdAt: comment.createdAt || new Date().toISOString(),
+            upvotes: Array.isArray(comment.upvotes)
+              ? comment.upvotes.length
+              : comment.upvotes || 0,
+            replies: comment.replies || [],
+          }))
+          : [],
+      };
+    })
     : [];
 
   // Filter posts by search

@@ -4,12 +4,7 @@ import InPuts from './InPuts';
 import { BiSolidUpvote } from 'react-icons/bi';
 import profile from '../assets/profile.jpg';
 import { useDeleteCommentMutation, useUpdateCommentMutation } from '../app/api/comments';
-import {
-  useAddReplyMutation,
-  useDeleteReplyMutation,
-  useUpdateReplyMutation,
-  useGetreplyQuery,
-} from '../app/api/reply';
+import { useAddReplyMutation, useDeleteReplyMutation, useGetreplyQuery } from '../app/api/reply';
 import { toast } from 'react-toastify';
 
 export default function CommunityComment({
@@ -33,7 +28,6 @@ export default function CommunityComment({
   // Reply mutations
   const [addReply, { isLoading: isAddingReply }] = useAddReplyMutation();
   const [deleteReply] = useDeleteReplyMutation();
-  const [updateReply] = useUpdateReplyMutation();
 
   // Get postId from props or comment
   const actualPostId = postId || comment.postId;
@@ -151,38 +145,38 @@ export default function CommunityComment({
   };
 
   // Handle deleting reply
-   const handleDeleteReply = async (replyId: string) => {
-     console.log('=== DELETE REPLY DEBUG ===');
-     console.log('Reply ID to delete:', replyId);
-     console.log('Post ID:', actualPostId);
-     console.log('Comment ID:', comment.id);
-     console.log('Current user:', JSON.parse(localStorage.getItem('citizen') || '{}'));
+  const handleDeleteReply = async (replyId: string) => {
+    console.log('=== DELETE REPLY DEBUG ===');
+    console.log('Reply ID to delete:', replyId);
+    console.log('Post ID:', actualPostId);
+    console.log('Comment ID:', comment.id);
+    console.log('Current user:', JSON.parse(localStorage.getItem('citizen') || '{}'));
 
-     if (!actualPostId) {
-       toast.error('Post ID not found');
-       return;
-     }
+    if (!actualPostId) {
+      toast.error('Post ID not found');
+      return;
+    }
 
-     try {
-       const result = await deleteReply({
-         postId: actualPostId,
-         commentId: comment.id,
-         id: replyId,
-       }).unwrap();
+    try {
+      const result = await deleteReply({
+        postId: actualPostId,
+        commentId: comment.id,
+        id: replyId,
+      }).unwrap();
 
-       console.log('Delete reply success:', result);
-       toast.success('Reply deleted successfully!');
-       refetchReplies();
-     } catch (error: any) {
-       console.error('=== DELETE REPLY ERROR ===');
-       console.error('Full error object:', error);
-       console.error('Error status:', error?.status);
-       console.error('Error data:', error?.data);
-       console.error('Error message:', error?.data?.message);
+      console.log('Delete reply success:', result);
+      toast.success('Reply deleted successfully!');
+      refetchReplies();
+    } catch (error: any) {
+      console.error('=== DELETE REPLY ERROR ===');
+      console.error('Full error object:', error);
+      console.error('Error status:', error?.status);
+      console.error('Error data:', error?.data);
+      console.error('Error message:', error?.data?.message);
 
-       toast.error(error?.data?.message || 'Failed to delete reply');
-     }
-   };
+      toast.error(error?.data?.message || 'Failed to delete reply');
+    }
+  };
 
   // Handle showing/hiding replies
   const toggleReplies = () => {

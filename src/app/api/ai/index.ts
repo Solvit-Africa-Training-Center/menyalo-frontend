@@ -53,9 +53,11 @@ export const aiApi = apiSlice.injectEndpoints({
         url: `/ai/conversations/${conversationId}`,
         method: 'GET',
       }),
-      providesTags: (result, error, conversationId) => [
-        { type: 'AIConversations', id: conversationId },
-      ],
+      providesTags: (result, error, conversationId) => {
+        void result;
+        void error;
+        return [{ type: 'AIConversations', id: conversationId }];
+      },
     }),
 
     createConversation: builder.mutation<

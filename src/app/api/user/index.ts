@@ -16,7 +16,11 @@ export const userApi = apiSlice.injectEndpoints({
         url: `/users/${id}`,
         method: 'GET',
       }),
-      providesTags: (result, error, id) => [{ type: 'Users', id }],
+      providesTags: (result, error, id) => {
+        void result;
+        void error;
+        return [{ type: 'Users', id }];
+      },
     }),
     createUser: builder.mutation<UserstableType, Partial<UserstableType>>({
       query: (data) => ({
@@ -32,14 +36,22 @@ export const userApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Users', id }, 'Users'],
+      invalidatesTags: (result, error, { id }) => {
+        void result;
+        void error;
+        return [{ type: 'Users', id }, 'Users'];
+      },
     }),
     deleteUser: builder.mutation<{ success: boolean }, string>({
       query: (id) => ({
         url: `/users/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Users', id }, 'Users'],
+      invalidatesTags: (result, error, id) => {
+        void result;
+        void error;
+        return [{ type: 'Users', id }, 'Users'];
+      },
     }),
   }),
 });

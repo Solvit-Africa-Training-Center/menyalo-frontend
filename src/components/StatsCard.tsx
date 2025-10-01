@@ -48,7 +48,7 @@ const StatsCard: React.FC<StatsCardProps> = ({
       {/* Main value */}
       <div className="mb-3">
         <div className="text-2xl font-bold text-gray-900">
-          {/* {valuePrefix} */}
+          {valuePrefix}
           {typeof value === 'number' ? value.toLocaleString() : value}
           {valueSuffix}
         </div>

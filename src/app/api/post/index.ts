@@ -14,7 +14,11 @@ export const postApi = apiSlice.injectEndpoints({
         url: `/posts/${id}`,
         method: 'GET',
       }),
-      providesTags: (result, error, id) => [{ type: 'Posts', id }],
+      providesTags: (result, error, id) => {
+        void result;
+        void error;
+        return [{ type: 'Posts', id }];
+      },
     }),
     createPost: builder.mutation<any, FormData>({
       query: (formData) => ({
@@ -31,14 +35,22 @@ export const postApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => ['Posts', { type: 'Posts', id }],
+      invalidatesTags: (result, error, { id }) => {
+        void result;
+        void error;
+        return ['Posts', { type: 'Posts', id } as const];
+      },
     }),
     deletePost: builder.mutation<{ success: boolean }, string>({
       query: (id) => ({
         url: `/posts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => ['Posts', { type: 'Posts', id }],
+      invalidatesTags: (result, error, id) => {
+        void result;
+        void error;
+        return ['Posts', { type: 'Posts', id } as const];
+      },
     }),
   }),
 });

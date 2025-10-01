@@ -1,7 +1,6 @@
 import type { LawDetails } from '../types/lawtypes';
 import GeneralNav from '../components/GeneralNav';
 import Button from '../components/Button';
-import profile from '../assets/profile.jpg';
 
 const law: LawDetails = {
   id: '32-2016',
@@ -50,7 +49,7 @@ export default function LawPage() {
           <div className="text-gray-600 mb-4 text-sm">{law.description}</div>
           <div className="flex items-center mb-4">
             <div className="ml-auto">
-              
+
             </div>
           </div>
           <div className="space-y-4 text-[0.97rem] text-gray-700">

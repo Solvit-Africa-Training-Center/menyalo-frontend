@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { CheckCircle, Trash2 } from 'lucide-react';
-import Sidebar from '../components/DashSideBar';
+// import Sidebar from '../components/DashSideBar';
 
 const Content = () => {
   const [reports, setReports] = useState([

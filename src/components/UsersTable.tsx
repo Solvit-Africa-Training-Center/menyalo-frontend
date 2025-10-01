@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetUsersQuery, useUpdateUserMutation, useDeleteUserMutation } from '../app/api/user';
-import profile from '../assets/profile.jpg';
+// import profile from '../assets/profile.jpg';
 import { formatDistanceToNow } from 'date-fns';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Edit2, Trash2, Eye, X, Check } from 'lucide-react';

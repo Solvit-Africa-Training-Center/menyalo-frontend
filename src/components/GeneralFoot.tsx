@@ -10,7 +10,7 @@ import Button from './Button';
 import InPuts from './InPuts';
 import { useSubscribeMutation } from '../app/api/subscribe';
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -20,18 +20,18 @@ export default function GeneralFoot() {
   const [email, setEmail] = useState('');
 
 
-   const handleSubscribe: React.FormEventHandler<HTMLFormElement> = async (e) => {
-     e.preventDefault();
-     try {
-       await subscribe({ email });
-       // Handle successful subscription (e.g., show a success message)
-        toast.success('Subscribed successfully!');
-     } catch (error) {
-       // Handle error (e.g., show an error message)
-       console.error('Subscription error:', error);
-        toast.error('Subscription failed. Please try again.');
-     }
-   };
+  const handleSubscribe: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    try {
+      await subscribe({ email });
+      // Handle successful subscription (e.g., show a success message)
+      toast.success('Subscribed successfully!');
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error('Subscription error:', error);
+      toast.error('Subscription failed. Please try again.');
+    }
+  };
 
   return (
     <div className="bg-primary-900 text-white">
