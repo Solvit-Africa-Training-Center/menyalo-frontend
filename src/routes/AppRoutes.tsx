@@ -18,6 +18,8 @@ import UsersPage from '../pages/UsersPage';
 import ProtectedRoute from '../components/ProtectedRoute';
 import ContentPage from '../pages/ContentPage';
 import DashLawPage from '../pages/DashLawPage';
+import ChatHistoryPage from '../pages/ChatHistoryPage';
+
 
 export default function AppRoutes() {
   return (
@@ -50,11 +52,14 @@ export default function AppRoutes() {
       <Route path="/community" element={<CommunityPage />} />
       <Route path="/ai" element={<AIPage />} />
       <Route path="/law" element={<LawPage />} />
-      <Route path="/users" element={
-        <ProtectedRoute allowedRoles={['law-firm']}>
-          <UsersPage />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute allowedRoles={['law-firm']}>
+            <UsersPage />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/verification"
         element={
@@ -79,6 +84,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/chat-history" element={<ChatHistoryPage />} />
     </Routes>
   );
 }
