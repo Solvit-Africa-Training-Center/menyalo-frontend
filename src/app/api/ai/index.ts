@@ -7,6 +7,14 @@ export interface AIMessage {
   timestamp: string;
 }
 
+export interface AIApiResponse {
+  answer: string;
+  message?: AIMessage;
+  documents: any[];
+  source: string;
+  conversationId?: string;
+}
+
 export interface AIConversation {
   id: string;
   title: string;
@@ -16,18 +24,19 @@ export interface AIConversation {
 }
 
 export interface AIResponse {
-  message: AIMessage;
-  conversationId: string;
+  message?: AIMessage;
+  answer?: string; // ✅ Add fallback for direct answer
+  conversationId?: string;
 }
 
 export const aiApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    sendMessage: builder.mutation<AIResponse, { message: string; conversationId?: string }>({
-      query: ({ message, conversationId }) => ({
-        url: '/ai/chat',
+    sendMessage: builder.mutation<AIApiResponse, { question: string; conversationId?: string }>({
+      query: ({ question, conversationId }) => ({
+        url: '/documents/query',
         method: 'POST',
         body: {
-          message,
+          question,
           conversationId,
         },
       }),
@@ -39,7 +48,7 @@ export const aiApi = apiSlice.injectEndpoints({
       void
     >({
       query: () => ({
-        url: '/ai/conversations',
+        url: '/documents/query-history',
         method: 'GET',
       }),
       providesTags: ['AIConversations'],
@@ -61,20 +70,20 @@ export const aiApi = apiSlice.injectEndpoints({
     }),
 
     createConversation: builder.mutation<
-      { data: AIConversation; success: boolean; message: string },
-      { title: string; firstMessage: string }
+      AIApiResponse & { data?: AIConversation },
+      { title: string; question: string }
     >({
-      query: ({ title, firstMessage }) => ({
-        url: '/ai/conversations',
+      query: ({ title, question }) => ({
+        url: '/documents/query',
         method: 'POST',
-        body: { title, firstMessage },
+        body: { title, question },
       }),
       invalidatesTags: ['AIConversations'],
     }),
 
     deleteConversation: builder.mutation<{ success: boolean; message: string }, string>({
-      query: (conversationId) => ({
-        url: `/ai/conversations/${conversationId}`,
+      query: (id) => ({
+        url: `/documents/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['AIConversations'],

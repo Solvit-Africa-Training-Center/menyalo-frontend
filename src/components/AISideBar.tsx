@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdOutlineLibraryBooks } from 'react-icons/md';
 import { BsClockHistory } from 'react-icons/bs';
 import { FiMenu, FiTrash2 } from 'react-icons/fi';
 import { useGetConversationsQuery, useDeleteConversationMutation } from '../app/api/ai';
 import { toast } from 'react-toastify';
+import { ChatStorageUtils } from '../utils/chatStorage';
+import { useNavigate } from 'react-router-dom';
+
 
 interface AISideBarProps {
   currentConversationId?: string;
@@ -12,17 +15,41 @@ interface AISideBarProps {
   onNewConversation: () => void;
 }
 
+interface LocalConversation {
+  id: string;
+  title: string;
+  messages: any[]; // or more specific message type
+  createdAt: string;
+  updatedAt: string;
+}
+
 export default function AISideBar({
   currentConversationId,
   onSelectConversation,
-  onNewConversation,
 }: AISideBarProps) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate(); 
   const { data: conversationsData, isLoading } = useGetConversationsQuery();
   const [deleteConversation] = useDeleteConversationMutation();
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [, setLocalConversations] = useState<LocalConversation[]>([]);
 
-  const conversations = conversationsData?.data || [];
+ const conversations = conversationsData?.data || [];
+
+ useEffect(() => {
+   const loadLocalConversations = () => {
+     const localChats = ChatStorageUtils.getAllConversations();
+     setLocalConversations(localChats);
+   };
+
+   loadLocalConversations();
+
+   // Listen for localStorage changes
+   window.addEventListener('storage', loadLocalConversations);
+   return () => window.removeEventListener('storage', loadLocalConversations);
+ }, []);
+
+  //  const allConversations = [...conversations, ...localConversations];
 
   const handleDeleteConversation = async (conversationId: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -51,7 +78,7 @@ export default function AISideBar({
     <>
       {/* Hamburger menu for mobile */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-white rounded-full p-2 shadow"
+        className="md:hidden fixed top-4 left-4 z-50 bg-white rounded-full p-2 shadow mt-16"
         onClick={() => setOpen(true)}
         aria-label="Open menu"
       >
@@ -82,7 +109,7 @@ export default function AISideBar({
         {/* Menu */}
         <nav className="flex flex-col gap-6 w-full px-8 pt-16">
           <button
-            onClick={onNewConversation}
+            onClick={() => navigate('/ai')}
             className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1"
           >
             <FaRegEdit className="text-[color:var(--color-primary-800)] text-xl" />
@@ -94,10 +121,13 @@ export default function AISideBar({
             Library
           </button>
 
-          <div className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600">
+          <button
+            onClick={() => navigate('/chat-history')}
+            className="flex items-center gap-3 text-base md:text-lg font-regular text-gray-600 hover:text-primary-800 transition hover:translate-x-1"
+          >
             <BsClockHistory className="text-[color:var(--color-primary-800)] text-xl" />
-            <span>Chat History</span>
-          </div>
+            Chat History
+          </button>
         </nav>
 
         {/* Conversations List */}
